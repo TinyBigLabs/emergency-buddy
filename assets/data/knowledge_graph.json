@@ -1,0 +1,78 @@
+    {
+    "knowledge_base": [
+        {
+        "id": "LOC-CAR-01",
+        "name": "St. James Community Center",
+        "type": "Location",
+        "keywords": ["hurricane", "shelter", "storm", "safe place", "st. james"],
+        "details": {
+            "address": "123 Main Road, Bridgetown",
+            "purpose": "Primary public hurricane shelter.",
+            "capacity": "Approx. 200 people"
+        }
+        },
+                {
+        "id": "LOC-CAR-01",
+        "name": "St. James Community Center",
+        "type": "Location",
+        "keywords": ["hurricane", "shelter", "storm", "safe place", "st. james"],
+        "details": {
+            "address": "123 Main Road, Bridgetown",
+            "purpose": "Primary public hurricane shelter.",
+            "capacity": "Approx. 200 people"
+        }
+        },
+                {
+        "id": "LOC-CAR-01",
+        "name": "St. James Community Center",
+        "type": "Location",
+        "keywords": ["hurricane", "shelter", "storm", "safe place", "st. james"],
+        "details": {
+            "address": "123 Main Road, Bridgetown",
+            "purpose": "Primary public hurricane shelter.",
+            "capacity": "Approx. 200 people"
+        }
+        },
+                {
+        "id": "LOC-CAR-01",
+        "name": "St. James Community Center",
+        "type": "Location",
+        "keywords": ["hurricane", "shelter", "storm", "safe place", "st. james"],
+        "details": {
+            "address": "123 Main Road, Bridgetown",
+            "purpose": "Primary public hurricane shelter.",
+            "capacity": "Approx. 200 people"
+        }
+        },
+        {
+        "id": "RES-CAR-01",
+        "name": "Radio Caribé (Emergency Broadcast)",
+        "type": "Resource",
+        "keywords": ["radio", "communication", "news", "updates", "broadcast", "frequency"],
+        "details": {
+            "frequency": "98.5 FM",
+            "information": "Provides official updates from the regional disaster agency, weather warnings, and post-event instructions."
+        }
+        },
+        {
+        "id": "GUIDE-CAR-01",
+        "name": "How to Act in a Tsunami Warning",
+        "type": "Survival Guide",
+        "keywords": ["tsunami", "tidal wave", "earthquake", "evacuate", "high ground", "receding water"],
+        "details": {
+            "critical_signs": "A strong earthquake lasting 20+ seconds, a loud roar from the ocean, or a sudden and unusual retreat of the sea.",
+            "instructions": "1. Do NOT wait for official warnings if you observe critical signs. 2. Move inland to the highest ground possible immediately. 3. Avoid river valleys and low-lying coastal areas. 4. Stay in your safe location until officials declare it is safe to return."
+        }
+        },
+        {
+        "id": "GUIDE-CAR-02",
+        "name": "Recognizing and Treating Dehydration",
+        "type": "First-Aid Guide",
+        "keywords": ["dehydration", "thirsty", "heatstroke", "sun", "water", "dizzy", "fatigue"],
+        "details": {
+            "symptoms": "Extreme thirst, infrequent urination, dark-colored urine, fatigue, dizziness, and confusion.",
+            "treatment": "1. Move to a cooler, shaded area. 2. Drink water or an oral rehydration solution in small, frequent sips. 3. Avoid sugary drinks, caffeine, and alcohol. 4. If symptoms are severe or include fainting, seek immediate medical help."
+        }
+        }
+    ]
+    }

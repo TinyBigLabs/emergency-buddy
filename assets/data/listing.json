@@ -1,0 +1,322 @@
+[
+    {
+      "listing_id": "4293d0ec-5d50-4421-b53e-c486cd52604f",
+      "first_aid_id": "2cec5f6f-6586-4829-8f1a-89fad6b1e3fb",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "Anaphylaxis (airway swelling from allergy)",
+      "page": 42,
+      "default": 1
+    },
+    {
+      "listing_id": "890dd8c8-6cbe-4bcb-9f1e-6f829fd8deeb",
+      "first_aid_id": "6a471c9a-cd46-4197-ab7c-0a9588e64b15",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "I have been bitten and/or stung",
+      "page": 65,
+      "default": 1
+    },
+    {
+      "listing_id": "ff83c999-c1e8-4d39-8087-218e5fd8ef42",
+      "first_aid_id": "84be1f0c-7fdc-43e0-9ac0-aaf3040a5f37",
+      "pdf_id": "c160fc8e-e015-410a-a786-e51a89894da4",
+      "title": "What to do if someone is bleeding",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "ebc07f82-0ecc-448b-9754-56295e79b9bd",
+      "first_aid_id": "84be1f0c-7fdc-43e0-9ac0-aaf3040a5f37",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "What to do if someone is bleeding",
+      "page": 48,
+      "default": 0
+    },
+    {
+      "listing_id": "2fed87f7-137a-4f88-9e17-8a6a80280e85",
+      "first_aid_id": "f129849f-d7de-4ac4-a558-454b9de82cb8",
+      "pdf_id": "f6b688bb-389f-4f57-b0ef-3290100fc5b9",
+      "title": "How to treat burns and scalds",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "c79a6844-3f22-4980-9fa8-227ce1d7486c",
+      "first_aid_id": "cdc8e703-989d-4019-b2db-9f7760e55eeb",
+      "pdf_id": "17635783-5ad7-4b67-9a30-934b26578e7b",
+      "title": "What to do if someone is choking",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "7fd1a69b-1418-4bf0-bd95-19b7cec681a0",
+      "first_aid_id": "cdc8e703-989d-4019-b2db-9f7760e55eeb",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "What to do if someone is choking",
+      "page": 39,
+      "default": 0
+    },
+    {
+      "listing_id": "9e1c0d77-9a05-4f69-8dfb-8b0b51f11778",
+      "first_aid_id": "95d152ab-ea0d-4534-a9bd-234f880b9e07",
+      "pdf_id": "470eab3a-3a25-4fea-920c-61b8ade66542",
+      "title": "What to do if a baby is choking",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "b89bccab-531e-4c94-95a4-d577872577da",
+      "first_aid_id": "4d8b4e3a-c9b2-42c9-a088-760e16b20e1d",
+      "pdf_id": "55ae6277-9768-4be6-a6ba-0632b2ab7c26",
+      "title": "How to perform CPR on an adult",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "35504697-5df5-478d-a21b-0f5b51684be2",
+      "first_aid_id": "4d8b4e3a-c9b2-42c9-a088-760e16b20e1d",
+      "pdf_id": "39b73128-9527-47b0-825e-28d36a2ab3b7",
+      "title": "How to perform CPR on an adult",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "73b10a26-616a-465b-894c-9ac48f52f493",
+      "first_aid_id": "4d8b4e3a-c9b2-42c9-a088-760e16b20e1d",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "How to perform CPR on an adult",
+      "page": 23,
+      "default": 0
+    },
+    {
+      "listing_id": "a70f884c-b15f-4df1-8d70-fe785ae3186b",
+      "first_aid_id": "8fbcf57d-ed04-440a-b8f5-81c1e8bc40a8",
+      "pdf_id": "ccad4dd7-bf40-4a02-a5e9-88280401cedb",
+      "title": "What to do if your baby\nhas stopped breathing normally",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "50ce7573-501d-4927-aeba-31573b2dbf12",
+      "first_aid_id": "8fbcf57d-ed04-440a-b8f5-81c1e8bc40a8",
+      "pdf_id": "b8596690-b2dd-4462-be50-905dae2e9a3a",
+      "title": "How to perform CPR on a baby",
+      "page": 1,
+      "default": 0
+    },
+    {
+      "listing_id": "6a306c7f-4057-4c7e-8181-dbfa18b53ad6",
+      "first_aid_id": "8fbcf57d-ed04-440a-b8f5-81c1e8bc40a8",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "How to perform CPR on a baby",
+      "page": 23,
+      "default": 0
+    },
+    {
+      "listing_id": "3872d4bd-d7eb-4d9f-8ed1-9c892f72264b",
+      "first_aid_id": "6b2dc1c3-8e72-4110-a91e-0ea0f533559e",
+      "pdf_id": "f35947b6-a27c-426a-b78f-85f978ae56a8",
+      "title": "How to perform CPR on a child",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "4eb60e45-880d-465a-9b97-3d2ea9462910",
+      "first_aid_id": "6b2dc1c3-8e72-4110-a91e-0ea0f533559e",
+      "pdf_id": "ceef95cf-9f17-495a-a8eb-1c703fc64c40",
+      "title": "How to perform CPR on a child",
+      "page": 1,
+      "default": 0
+    },
+    {
+      "listing_id": "57d2b21e-d92d-4b74-8bae-15e505eeb865",
+      "first_aid_id": "6b2dc1c3-8e72-4110-a91e-0ea0f533559e",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "How to perform CPR on a child",
+      "page": 23,
+      "default": 0
+    },
+    {
+      "listing_id": "e03f6490-ff00-4d77-ad6e-7012c87e4115",
+      "first_aid_id": "7ef4fd01-9085-4da8-88cc-c2e84e3ef2f7",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "What to do with a crush injury",
+      "page": 70,
+      "default": 1
+    },
+    {
+      "listing_id": "bdadfef2-d8cc-4cdf-bca8-30ac26d155af",
+      "first_aid_id": "840dd4cb-f33a-4575-9db5-d396df3c5f0d",
+      "pdf_id": "4b92a465-f5d6-43da-95ed-b738d8bbe7f5",
+      "title": "How to use a Defibrillator",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "d19dbf94-7cd5-42f1-ad2a-4e6b07972751",
+      "first_aid_id": "840dd4cb-f33a-4575-9db5-d396df3c5f0d",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "How to use a Defibrillator",
+      "page": 28,
+      "default": 0
+    },
+    {
+      "listing_id": "592fd106-9052-4251-85a4-797588bc041b",
+      "first_aid_id": "cd33e20d-32a2-4221-8409-d22ac34ed6ab",
+      "pdf_id": "e5257665-9cb3-4d12-af83-5e2e797acb6e",
+      "title": "Emergency first aid - english version",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "6864ddcd-1d1b-4598-aed8-2554c8ac70a5",
+      "first_aid_id": "f8e8e5ac-262a-497e-8ea6-0784e35526b4",
+      "pdf_id": "7fbf1558-ad7e-4cc4-b0d0-3735e492876a",
+      "title": "Five ways you can save someone's life",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "fd038ab6-24f4-4eaa-9d35-3eb9bc4d8dbc",
+      "first_aid_id": "d2fbaa58-7dc5-4d77-afcf-3a76598ab4a9",
+      "pdf_id": "35ea9136-d555-4db7-b7af-b14c6466e105",
+      "title": "Emergency first aid - polish version",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "b12fec73-bac1-4bee-b161-91373d09290d",
+      "first_aid_id": "ff8d8118-60e8-46e1-999d-023e388d0e8c",
+      "pdf_id": "d75fe1da-7559-4cb2-b085-21a768144f97",
+      "title": "Emergency first aid - punjabi version",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "301aca9c-4ea1-4024-8ecd-915af9fc1757",
+      "first_aid_id": "63227fa3-776e-4a07-9491-157f18408893",
+      "pdf_id": "2c24392b-f6e4-486b-965a-6cc6802ff2ba",
+      "title": "Emergency first aid - Urdu version",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "49670471-c11e-41bf-8a18-99d22ff0dae6",
+      "first_aid_id": "0551e388-fe34-4bb9-88a7-39c9faf030fd",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "How do I assess a casualty",
+      "page": 15,
+      "default": 1
+    },
+    {
+      "listing_id": "389e4ece-c814-4370-9cc7-d01650229adb",
+      "first_aid_id": "724e3780-6b32-476a-8532-f09ee69afd28",
+      "pdf_id": "0cd142bb-231e-471c-ad07-2728b135b252",
+      "title": "Five ways you can save your baby's life",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "58adbb0f-cc43-4e31-9625-1623de7e672f",
+      "first_aid_id": "0ccc35ad-792a-4ca3-bead-0ffb812a3648",
+      "pdf_id": "7709b44b-8724-4303-a5a4-51af98f87a2a",
+      "title": "What to do when someone is having a Heart Attack",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "97f59139-a43f-411d-9634-b0951d56bf64",
+      "first_aid_id": "e1262389-bdb6-4339-ac08-47e380c3e188",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "What to do with Meningitis",
+      "page": 64,
+      "default": 1
+    },
+    {
+      "listing_id": "51748224-b44e-4723-9154-5fd9981a4ad7",
+      "first_aid_id": "0b49e896-113a-4bba-9ace-20581be63878",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "I had contact with poisons",
+      "page": 57,
+      "default": 1
+    },
+    {
+      "listing_id": "4bd37b56-9060-4d1c-933b-44a03a17a5f0",
+      "first_aid_id": "5730f7c2-ed15-4039-8d17-da1d0fc27a8e",
+      "pdf_id": "346e75f6-3a5f-4ed1-8538-ad932c820f7d",
+      "title": "How to put a baby in the recovery position",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "14d05589-0e68-45dc-9f9e-51e250f59c16",
+      "first_aid_id": "fbb4fd8c-7662-4a6c-910c-7dd79c4f0380",
+      "pdf_id": "bd15e257-7fa0-4767-840f-20ab11a30159",
+      "title": "How to put a child in the recovery position",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "266dec83-c3c1-4fa5-82da-77aba5181962",
+      "first_aid_id": "c7771659-bf9c-41e9-a8dd-75f32d693086",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "Seizure that lasts longer than 5 minutes (status epilepticus)",
+      "page": 33,
+      "default": 1
+    },
+    {
+      "listing_id": "d1fd2aa5-5738-43b3-9dfe-3cbe2eb33d32",
+      "first_aid_id": "c375609e-853b-47b6-8814-bfcd8e57f6b3",
+      "pdf_id": "c76e5bfd-011c-4bc9-9e78-68f2774e652d",
+      "title": "What to do if a baby has a seizure",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "8bf2f398-ce64-43a4-8155-d14aa9a42260",
+      "first_aid_id": "c375609e-853b-47b6-8814-bfcd8e57f6b3",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "What to do if a baby has a seizure",
+      "page": 33,
+      "default": 0
+    },
+    {
+      "listing_id": "d5a46e40-c414-495a-9697-267c138ec520",
+      "first_aid_id": "cb3fd23b-3343-4509-86a0-4141afc20be0",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "What to do with sepsis",
+      "page": 64,
+      "default": 1
+    },
+    {
+      "listing_id": "ce4a9bd5-d8d2-47a5-a8f9-89fe2b6ecb3f",
+      "first_aid_id": "69b8dd5c-9660-4a5e-9b67-5c9f0498b17a",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "What to do with a spinal injury",
+      "page": 69,
+      "default": 1
+    },
+    {
+      "listing_id": "89da34f1-3889-43e4-b7d2-6ebb2760e73d",
+      "first_aid_id": "939a0891-ab9e-4bbf-a652-98cbdf4f1d3b",
+      "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
+      "title": "What to do with a sprains and strains injury",
+      "page": 67,
+      "default": 1
+    },
+    {
+      "listing_id": "6f4a6c2d-a217-4a47-8293-23c333604dbd",
+      "first_aid_id": "03406648-80a5-48ad-ac6d-9cdbf2f565c3",
+      "pdf_id": "d92cb40c-fb0a-44c7-9200-71e9d930140b",
+      "title": "What to do if an adult is unresponsive",
+      "page": 1,
+      "default": 1
+    },
+    {
+      "listing_id": "c4f8bc4d-6c32-48b2-a041-b00520ec7be2",
+      "first_aid_id": "44ac4c27-f857-4cc5-bd4f-f8fff305083c",
+      "pdf_id": "fe78b61a-3114-4822-8f32-cf4a3c738463",
+      "title": "What to do if a baby is unresponsive",
+      "page": 1,
+      "default": 1
+    }
+  ]
