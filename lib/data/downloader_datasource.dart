@@ -64,7 +64,6 @@ class GemmaDownloaderDataSource {
 
   /// Downloads the model file and tracks progress.
   Future<void> downloadModel({
-    required String token,
     required Function(double) onProgress,
   }) async {
     http.StreamedResponse? response;
@@ -81,8 +80,8 @@ class GemmaDownloaderDataSource {
       }
 
       final request = http.Request('GET', Uri.parse(model.modelUrl));
-      if (token.isNotEmpty) {
-        request.headers['Authorization'] = 'Bearer $token';
+      if (accessToken.isNotEmpty) {
+        request.headers['Authorization'] = 'Bearer $accessToken';
       }
 
       if (downloadedBytes > 0) {

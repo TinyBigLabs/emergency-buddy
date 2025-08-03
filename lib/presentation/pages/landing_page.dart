@@ -2,6 +2,7 @@ import 'package:emergency_buddy/core/utils/constants.dart';
 import 'package:emergency_buddy/presentation/widgets/first_aid/first_aid_listing.dart';
 import 'package:emergency_buddy/presentation/widgets/footer_section/footer_section_sliver_mobile.dart';
 import 'package:emergency_buddy/presentation/widgets/footer_section/footer_section_sliver_web.dart';
+import 'package:emergency_buddy/presentation/widgets/gemma/gemma_loading_widget.dart';
 import 'package:emergency_buddy/presentation/widgets/header_section/header_section_sliver_mobile.dart';
 import 'package:emergency_buddy/presentation/widgets/header_section/header_section_sliver_web.dart';
 import 'package:emergency_buddy/presentation/widgets/hospitals/hospital_listing.dart';
@@ -56,6 +57,13 @@ class _LandingPageSliverState extends State<LandingPageSliver> {
                         : SliverTopBarMobile(title: widget.title),
                   ),
                 ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.all(UIConstants.mediumSize),
+                    child: GemmaLoadingWidget(),
+                  ),
+                ),
+
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.all(UIConstants.mediumSize),
