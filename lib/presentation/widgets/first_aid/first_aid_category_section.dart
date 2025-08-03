@@ -55,7 +55,7 @@ class FirstAidCategorySectionTile extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(UIConstants.mediumSize),
             child: SizedBox(
-              width: 500,
+              width: kIsWeb? 1000 : 500,
               height: 500,
               child: kIsWeb
                   ? Row(
