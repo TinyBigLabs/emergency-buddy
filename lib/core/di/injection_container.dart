@@ -11,6 +11,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
+import '../../domain/repositories/location_search_repo.dart';
+
 final sl = GetIt.instance;
 
 @InjectableInit()
@@ -50,5 +52,6 @@ Future<void> init() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     sl.registerLazySingleton(() => sharedPreferences);
   }
+  sl.registerSingleton<LocationSearchRepo>(LocationSearchRepoImpl()..buildLocationTree());
   await configureDependencies();
 }

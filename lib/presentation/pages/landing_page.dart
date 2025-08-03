@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:emergency_buddy/core/utils/constants.dart';
 import 'package:emergency_buddy/presentation/widgets/first_aid/first_aid_listing.dart';
 import 'package:emergency_buddy/presentation/widgets/footer_section/footer_section_sliver_mobile.dart';
@@ -77,7 +79,9 @@ class _LandingPageSliverState extends State<LandingPageSliver> {
                   ),
                 ),
                 // Hospital section
-                HospitalListing(),
+                HospitalListing(
+                  userLocation: Point(-0.13311838933852876, 51.52776224324315),
+                ),
                 // First Aid Section
                 SliverToBoxAdapter(
                   child: Center(

@@ -1,78 +1,217 @@
+{
+  "knowledge_base": [
     {
-    "knowledge_base": [
-        {
-        "id": "LOC-CAR-01",
-        "name": "St. James Community Center",
-        "type": "Location",
-        "keywords": ["hurricane", "shelter", "storm", "safe place", "st. james"],
-        "details": {
-            "address": "123 Main Road, Bridgetown",
-            "purpose": "Primary public hurricane shelter.",
-            "capacity": "Approx. 200 people"
-        }
-        },
-                {
-        "id": "LOC-CAR-01",
-        "name": "St. James Community Center",
-        "type": "Location",
-        "keywords": ["hurricane", "shelter", "storm", "safe place", "st. james"],
-        "details": {
-            "address": "123 Main Road, Bridgetown",
-            "purpose": "Primary public hurricane shelter.",
-            "capacity": "Approx. 200 people"
-        }
-        },
-                {
-        "id": "LOC-CAR-01",
-        "name": "St. James Community Center",
-        "type": "Location",
-        "keywords": ["hurricane", "shelter", "storm", "safe place", "st. james"],
-        "details": {
-            "address": "123 Main Road, Bridgetown",
-            "purpose": "Primary public hurricane shelter.",
-            "capacity": "Approx. 200 people"
-        }
-        },
-                {
-        "id": "LOC-CAR-01",
-        "name": "St. James Community Center",
-        "type": "Location",
-        "keywords": ["hurricane", "shelter", "storm", "safe place", "st. james"],
-        "details": {
-            "address": "123 Main Road, Bridgetown",
-            "purpose": "Primary public hurricane shelter.",
-            "capacity": "Approx. 200 people"
-        }
-        },
-        {
-        "id": "RES-CAR-01",
-        "name": "Radio Caribé (Emergency Broadcast)",
-        "type": "Resource",
-        "keywords": ["radio", "communication", "news", "updates", "broadcast", "frequency"],
-        "details": {
-            "frequency": "98.5 FM",
-            "information": "Provides official updates from the regional disaster agency, weather warnings, and post-event instructions."
-        }
-        },
-        {
-        "id": "GUIDE-CAR-01",
-        "name": "How to Act in a Tsunami Warning",
-        "type": "Survival Guide",
-        "keywords": ["tsunami", "tidal wave", "earthquake", "evacuate", "high ground", "receding water"],
-        "details": {
-            "critical_signs": "A strong earthquake lasting 20+ seconds, a loud roar from the ocean, or a sudden and unusual retreat of the sea.",
-            "instructions": "1. Do NOT wait for official warnings if you observe critical signs. 2. Move inland to the highest ground possible immediately. 3. Avoid river valleys and low-lying coastal areas. 4. Stay in your safe location until officials declare it is safe to return."
-        }
-        },
-        {
-        "id": "GUIDE-CAR-02",
-        "name": "Recognizing and Treating Dehydration",
-        "type": "First-Aid Guide",
-        "keywords": ["dehydration", "thirsty", "heatstroke", "sun", "water", "dizzy", "fatigue"],
-        "details": {
-            "symptoms": "Extreme thirst, infrequent urination, dark-colored urine, fatigue, dizziness, and confusion.",
-            "treatment": "1. Move to a cooler, shaded area. 2. Drink water or an oral rehydration solution in small, frequent sips. 3. Avoid sugary drinks, caffeine, and alcohol. 4. If symptoms are severe or include fainting, seek immediate medical help."
-        }
-        }
-    ]
+      "id": "HOS-01",
+      "name": "St Thomas' Hospital",
+      "type": "Hospital",
+      "location": {
+        "lat": 51.4995,
+        "lon": -0.1195
+      },
+      "details": {
+        "address": "Westminster Bridge Rd, London SE1 7EH",
+        "phone": "020 7188 7188",
+        "notes": "Major hospital with a 24/7 Accident & Emergency department."
+      },
+      "keywords": ["hospital", "emergency", "a&e", "st thomas", "medical", "injury", "lambeth"]
+    },
+    {
+      "id": "HOS-02",
+      "name": "University College Hospital (UCH)",
+      "type": "Hospital",
+      "location": {
+        "lat": 51.5245,
+        "lon": -0.1342
+      },
+      "details": {
+        "address": "235 Euston Rd, London NW1 2BU",
+        "phone": "020 3456 7890",
+        "notes": "Major hospital and teaching facility near Euston."
+      },
+      "keywords": ["hospital", "emergency", "a&e", "uch", "medical", "euston", "camden"]
+    },
+    {
+      "id": "POL-01",
+      "name": "Charing Cross Police Station",
+      "type": "Police Station",
+      "location": {
+        "lat": 51.5103,
+        "lon": -0.1250
+      },
+      "details": {
+        "address": "Agar St, London WC2N 4JP",
+        "phone": "101",
+        "notes": "Centrally located police station, open 24/7."
+      },
+      "keywords": ["police", "safety", "crime", "emergency", "charing cross", "strand"]
+    },
+    {
+      "id": "POL-02",
+      "name": "Islington Police Station",
+      "type": "Police Station",
+      "location": {
+        "lat": 51.5361,
+        "lon": -0.1042
+      },
+      "details": {
+        "address": "2 Tolpuddle St, London N1 0YY",
+        "phone": "101",
+        "notes": "Serves the Islington area."
+      },
+      "keywords": ["police", "safety", "crime", "islington", "angel"]
+    },
+    {
+      "id": "FIRE-01",
+      "name": "Soho Fire Station",
+      "type": "Fire Station",
+      "location": {
+        "lat": 51.5144,
+        "lon": -0.1363
+      },
+      "details": {
+        "address": "194 Shaftesbury Ave, London WC2H 8JE",
+        "phone": "999",
+        "notes": "Emergency fire and rescue services."
+      },
+      "keywords": ["fire station", "emergency", "rescue", "soho"]
+    },
+    {
+      "id": "TRANS-01",
+      "name": "Waterloo Station",
+      "type": "Transport Hub",
+      "location": {
+        "lat": 51.5031,
+        "lon": -0.1123
+      },
+      "details": {
+        "address": "Waterloo Rd, London SE1 8SW",
+        "notes": "Major train station, usually busy and well-lit with staff and transport police present."
+      },
+      "keywords": ["station", "train", "waterloo", "transport", "hub", "south bank"]
+    },
+    {
+      "id": "TRANS-02",
+      "name": "King's Cross St. Pancras",
+      "type": "Transport Hub",
+      "location": {
+        "lat": 51.5310,
+        "lon": -0.1238
+      },
+      "details": {
+        "address": "Euston Rd, London N1 9AL",
+        "notes": "Two major co-located stations with national and international rail services. High security presence."
+      },
+      "keywords": ["station", "train", "kings cross", "st pancras", "eurostar", "transport"]
+    },
+    {
+      "id": "HOS-03",
+      "name": "Guy's Hospital",
+      "type": "Hospital",
+      "location": {
+        "lat": 51.5046,
+        "lon": -0.0883
+      },
+      "details": {
+        "address": "Great Maze Pond, London SE1 9RT",
+        "phone": "020 7188 7188",
+        "notes": "Near London Bridge. Major services available."
+      },
+      "keywords": ["hospital", "emergency", "a&e", "guys", "medical", "london bridge"]
+    },
+    {
+      "id": "POL-03",
+      "name": "Belgravia Police Station",
+      "type": "Police Station",
+      "location": {
+        "lat": 51.4962,
+        "lon": -0.1557
+      },
+      "details": {
+        "address": "202-206 Buckingham Palace Rd, London SW1W 9SX",
+        "phone": "101",
+        "notes": "Police station near Victoria Station."
+      },
+      "keywords": ["police", "safety", "crime", "belgravia", "victoria"]
+    },
+    {
+      "id": "HOS-01",
+      "name": "St Thomas' Hospital",
+      "type": "Hospital",
+      "location": { "lat": 51.4995, "lon": -0.1195 },
+      "details": { "address": "Westminster Bridge Rd, London SE1 7EH", "phone": "020 7188 7188", "notes": "Major hospital with a 24/7 Accident & Emergency department." },
+      "keywords": ["hospital", "emergency", "a&e", "st thomas", "medical", "london"]
+    },
+    {
+      "id": "HOS-02",
+      "name": "University College Hospital (UCH)",
+      "type": "Hospital",
+      "location": { "lat": 51.5245, "lon": -0.1342 },
+      "details": { "address": "235 Euston Rd, London NW1 2BU", "phone": "020 3456 7890", "notes": "Major hospital and teaching facility near Euston." },
+      "keywords": ["hospital", "emergency", "a&e", "uch", "medical", "london"]
+    },
+    {
+      "id": "POL-01",
+      "name": "Charing Cross Police Station",
+      "type": "Police Station",
+      "location": { "lat": 51.5103, "lon": -0.1250 },
+      "details": { "address": "Agar St, London WC2N 4JP", "phone": "101", "notes": "Centrally located police station, open 24/7." },
+      "keywords": ["police", "safety", "crime", "charing cross", "london"]
+    },
+    {
+      "id": "TRANS-01",
+      "name": "Waterloo Station",
+      "type": "Transport Hub",
+      "location": { "lat": 51.5031, "lon": -0.1123 },
+      "details": { "address": "Waterloo Rd, London SE1 8SW", "notes": "Major train station, usually busy and well-lit with staff and transport police present." },
+      "keywords": ["station", "train", "waterloo", "transport", "london"]
+    },
+    {
+      "id": "TRANS-02",
+      "name": "King's Cross St. Pancras",
+      "type": "Transport Hub",
+      "location": { "lat": 51.5310, "lon": -0.1238 },
+      "details": { "address": "Euston Rd, London N1 9AL", "notes": "Two major co-located stations with national and international rail services." },
+      "keywords": ["station", "train", "kings cross", "st pancras", "london"]
+    },
+    {
+      "id": "HOS-MCR-01",
+      "name": "Manchester Royal Infirmary",
+      "type": "Hospital",
+      "location": { "lat": 53.4631, "lon": -2.2281 },
+      "details": { "address": "Oxford Rd, Manchester M13 9WL", "phone": "0161 276 1234", "notes": "Major teaching hospital in Manchester." },
+      "keywords": ["hospital", "emergency", "a&e", "manchester", "mri", "medical"]
+    },
+    {
+      "id": "POL-MCR-01",
+      "name": "Longsight Police Station",
+      "type": "Police Station",
+      "location": { "lat": 53.4560, "lon": -2.1998 },
+      "details": { "address": "Roby St, Manchester M1 2BA", "phone": "101", "notes": "Serves the Longsight area of Manchester." },
+      "keywords": ["police", "safety", "crime", "manchester", "longsight"]
+    },
+    {
+      "id": "TRANS-MCR-01",
+      "name": "Manchester Piccadilly",
+      "type": "Transport Hub",
+      "location": { "lat": 53.4774, "lon": -2.2309 },
+      "details": { "address": "Piccadilly Station Approach, Manchester M60 7RA", "notes": "Principal railway station in Manchester." },
+      "keywords": ["station", "train", "piccadilly", "manchester"]
+    },
+    {
+      "id": "HOS-BHX-01",
+      "name": "Queen Elizabeth Hospital Birmingham",
+      "type": "Hospital",
+      "location": { "lat": 52.4519, "lon": -1.9405 },
+      "details": { "address": "Mindelsohn Way, Birmingham B15 2GW", "phone": "0121 371 2000", "notes": "One of the largest single-site hospitals in the UK." },
+      "keywords": ["hospital", "emergency", "a&e", "birmingham", "qe", "medical"]
+    },
+    {
+      "id": "TRANS-BHX-01",
+      "name": "Birmingham New Street Station",
+      "type": "Transport Hub",
+      "location": { "lat": 52.4777, "lon": -1.8988 },
+      "details": { "address": "Station St, Birmingham B2 4QA", "notes": "The largest and busiest railway station in Birmingham." },
+      "keywords": ["station", "train", "new street", "birmingham"]
     }
+  ]
+}
