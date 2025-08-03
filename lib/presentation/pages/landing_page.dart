@@ -23,6 +23,8 @@ class LandingPageSliver extends StatefulWidget {
 
 class _LandingPageSliverState extends State<LandingPageSliver> {
   late Future<void> _loadDataFuture;
+  // State for toggle buttons
+  final List<bool> _isSelected = [true, false, false];
 
   @override
   void initState() {
@@ -63,13 +65,14 @@ class _LandingPageSliverState extends State<LandingPageSliver> {
                     child: GemmaLoadingWidget(),
                   ),
                 ),
-
                 SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.all(UIConstants.mediumSize),
-                    child: Text(
-                      'Nearby Hospitals',
-                      style: Theme.of(context).textTheme.headlineMedium,
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(UIConstants.mediumSize),
+                      child: Text(
+                        'Nearby Hospitals',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
                     ),
                   ),
                 ),
@@ -77,22 +80,110 @@ class _LandingPageSliverState extends State<LandingPageSliver> {
                 HospitalListing(),
                 // First Aid Section
                 SliverToBoxAdapter(
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(UIConstants.mediumSize),
+                      child: Text(
+                        'First Aid',
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                  ),
+                ),
+                SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.all(UIConstants.mediumSize),
-                    child: Text(
-                      'Life Threatening emergencies',
-                      style: Theme.of(context).textTheme.headlineMedium,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Select an age group to view first aid instructions',
+                            style: Theme.of(context).textTheme.bodyMedium,
+                          ),
+                          SizedBox(height: UIConstants.mediumSize),
+                          ToggleButtons(
+                            isSelected: _isSelected,
+                            onPressed: (int index) {
+                              setState(() {
+                                for (int i = 0; i < _isSelected.length; i++) {
+                                  _isSelected[i] = i == index;
+                                }
+                                index == 0
+                                    ? context
+                                        .read<FirstAidCubit>()
+                                        .setAgeGroup("adult")
+                                    : index == 1
+                                        ? context
+                                            .read<FirstAidCubit>()
+                                            .setAgeGroup("child")
+                                        : context
+                                            .read<FirstAidCubit>()
+                                            .setAgeGroup("baby");
+                              });
+                            },
+                            borderRadius: BorderRadius.circular(8.0),
+                            selectedColor: Colors.white,
+                            fillColor: Theme.of(context).primaryColorDark,
+                            color: Colors.black,
+                            constraints: BoxConstraints.expand(
+                              width: MediaQuery.of(context).size.width *
+                                  0.9 /
+                                  _isSelected.length,
+                            ),
+                            children: [
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Icon(Icons.person),
+                                  Text('Adult'),
+                                ],
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Icon(Icons.child_care),
+                                  Text('Child'),
+                                ],
+                              ),
+                              Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Icon(Icons.baby_changing_station),
+                                  Text('Baby'),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ]),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Container(
+                    color: Theme.of(context).secondaryHeaderColor,
+                    child: Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(UIConstants.mediumSize),
+                        child: Text(
+                          'Life Threatening',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
                     ),
                   ),
                 ),
                 FirstAidListing(category: 'Life Threatening'),
-
                 SliverToBoxAdapter(
-                  child: Padding(
-                    padding: EdgeInsets.all(UIConstants.mediumSize),
-                    child: Text(
-                      'Emergencies',
-                      style: Theme.of(context).textTheme.headlineMedium,
+                  child: Container(
+                    color: Theme.of(context).secondaryHeaderColor,
+                    child: Center(
+                      child: Padding(
+                        padding: EdgeInsets.all(UIConstants.mediumSize),
+                        child: Text(
+                          'Emergencies',
+                          style: Theme.of(context).textTheme.bodyLarge,
+                        ),
+                      ),
                     ),
                   ),
                 ),

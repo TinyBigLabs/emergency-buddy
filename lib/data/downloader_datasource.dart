@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// TODO: Replace with your actual access token.
-final accessToken = "ADD_YOUR_KEY_HERE";
+final accessToken = "<enter token here>";
 
 class GemmaDownloaderDataSource {
   final DownloadModel model;
