@@ -20,7 +20,7 @@ class _GemmaLoadingWidgetState extends State<GemmaLoadingWidget> {
   late final IosDeviceInfo iosInfo;
   late final GemmaDownloaderDataSource _downloaderDataSource;
   final ValueNotifier<String> _loadingMessage =
-  ValueNotifier('Initializing, loading Gemma...');
+      ValueNotifier('Initializing, loading Gemma...');
 
   Future<bool> loadModel() async {
     if (kIsWeb) {
@@ -35,7 +35,7 @@ class _GemmaLoadingWidgetState extends State<GemmaLoadingWidget> {
       _downloaderDataSource = GemmaDownloaderDataSource(
         model: DownloadModel(
           modelUrl:
-          'https://huggingface.co/litert-community/Gemma3-1B-IT/resolve/main/Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task',
+              'https://huggingface.co/litert-community/Gemma3-1B-IT/resolve/main/Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task',
           modelFilename: 'Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task',
         ),
       );
@@ -43,7 +43,7 @@ class _GemmaLoadingWidgetState extends State<GemmaLoadingWidget> {
       _downloaderDataSource = GemmaDownloaderDataSource(
         model: DownloadModel(
           modelUrl:
-          'https://huggingface.co/google/gemma-3n-E2B-it-litert-preview/resolve/main/gemma-3n-E2B-it-int4.task',
+              'https://huggingface.co/google/gemma-3n-E2B-it-litert-preview/resolve/main/gemma-3n-E2B-it-int4.task',
           modelFilename: 'gemma-3n-E2B-it-int4.task',
         ),
       );
@@ -62,7 +62,7 @@ class _GemmaLoadingWidgetState extends State<GemmaLoadingWidget> {
     await _downloaderDataSource.downloadModel(
       onProgress: (progress) {
         _loadingMessage.value =
-        'Downloading model: ${(progress * 100).toStringAsFixed(1)}%';
+            'Downloading model: ${(progress * 100).toStringAsFixed(1)}%';
       },
     );
 
@@ -106,25 +106,25 @@ class _GemmaLoadingWidgetState extends State<GemmaLoadingWidget> {
     return Center(
       child: _isModelLoading
           ? Container(
-        padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: Colors.yellow,
-          borderRadius: BorderRadius.circular(8.0),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 16),
-            ValueListenableBuilder<String>(
-              valueListenable: _loadingMessage,
-              builder: (context, value, child) {
-                return Text(value);
-              },
-            ),
-          ],
-        ),
-      )
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                color: Colors.yellow,
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(height: 16),
+                  ValueListenableBuilder<String>(
+                    valueListenable: _loadingMessage,
+                    builder: (context, value, child) {
+                      return Text(value);
+                    },
+                  ),
+                ],
+              ),
+            )
           : SizedBox.shrink(),
     );
   }

@@ -13,6 +13,6 @@ class UIConstants {
   static const double mobileBreakpoint = 600.0;
   static const double tabletBreakpoint = 1024.0;
 
-  //tool name constants 
+  //tool name constants
   static const String kSearchDatabaseFunctionTool = 'search_database';
 }

@@ -32,6 +32,9 @@ dependencies:
   freezed_annotation: ^3.1.0
   fuzzywuzzy: ^1.2.0
   device_info_plus: ^11.5.0
+  flutter_pdfview: ^1.4.1+1
+  equatable: ^2.0.7
+  pdf_render: ^1.4.12
 
 dev_dependencies:
   flutter_test:
@@ -40,6 +43,7 @@ dev_dependencies:
   injectable_generator: ^2.5.1
   build_runner: ^2.6.0
   json_serializable: ^6.10.0
+  build_web_compilers: ^4.0.4
 
 flutter:
   uses-material-design: true
@@ -49,6 +53,7 @@ flutter:
     - assets/data/first_aid_categories.json
     - assets/data/listing.json
     - assets/data/knowledge_graph.json
+    - assets/data/age_group.json
     - assets/data/pdf.json
     - assets/pdf/
 

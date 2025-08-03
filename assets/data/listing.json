@@ -29,7 +29,7 @@
       "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
       "title": "What to do if someone is bleeding",
       "page": 48,
-      "default": 0
+      "default": 1
     },
     {
       "listing_id": "2fed87f7-137a-4f88-9e17-8a6a80280e85",
@@ -53,7 +53,7 @@
       "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
       "title": "What to do if someone is choking",
       "page": 39,
-      "default": 0
+      "default": 1
     },
     {
       "listing_id": "9e1c0d77-9a05-4f69-8dfb-8b0b51f11778",
@@ -85,7 +85,7 @@
       "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
       "title": "How to perform CPR on an adult",
       "page": 23,
-      "default": 0
+      "default": 1
     },
     {
       "listing_id": "a70f884c-b15f-4df1-8d70-fe785ae3186b",
@@ -101,7 +101,7 @@
       "pdf_id": "b8596690-b2dd-4462-be50-905dae2e9a3a",
       "title": "How to perform CPR on a baby",
       "page": 1,
-      "default": 0
+      "default": 1
     },
     {
       "listing_id": "6a306c7f-4057-4c7e-8181-dbfa18b53ad6",
@@ -109,7 +109,7 @@
       "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
       "title": "How to perform CPR on a baby",
       "page": 23,
-      "default": 0
+      "default": 1
     },
     {
       "listing_id": "3872d4bd-d7eb-4d9f-8ed1-9c892f72264b",
@@ -125,7 +125,7 @@
       "pdf_id": "ceef95cf-9f17-495a-a8eb-1c703fc64c40",
       "title": "How to perform CPR on a child",
       "page": 1,
-      "default": 0
+      "default": 1
     },
     {
       "listing_id": "57d2b21e-d92d-4b74-8bae-15e505eeb865",
@@ -133,7 +133,7 @@
       "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
       "title": "How to perform CPR on a child",
       "page": 23,
-      "default": 0
+      "default": 1
     },
     {
       "listing_id": "e03f6490-ff00-4d77-ad6e-7012c87e4115",
@@ -157,7 +157,7 @@
       "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
       "title": "How to use a Defibrillator",
       "page": 28,
-      "default": 0
+      "default": 1
     },
     {
       "listing_id": "592fd106-9052-4251-85a4-797588bc041b",
@@ -277,7 +277,7 @@
       "pdf_id": "ffaf5e31-8e57-438b-a6f7-6106cf0f7be2",
       "title": "What to do if a baby has a seizure",
       "page": 33,
-      "default": 0
+      "default": 1
     },
     {
       "listing_id": "d5a46e40-c414-495a-9697-267c138ec520",

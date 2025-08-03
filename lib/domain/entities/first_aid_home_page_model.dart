@@ -4,6 +4,7 @@ class FirstAidHomePageData {
   final String promptTag;
   final String ageGroup;
   final String pdf;
+  final int pageNumber;
   final int sort;
 
   FirstAidHomePageData({
@@ -11,6 +12,7 @@ class FirstAidHomePageData {
     required this.promptTag,
     required this.ageGroup,
     required this.pdf,
+    required this.pageNumber,
     required this.sort,
   });
 }

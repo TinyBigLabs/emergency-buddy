@@ -1,6 +1,5 @@
 import 'dart:math';
 
-
 import 'boundary.dart';
 import 'quad_tree_point.dart';
 
@@ -104,31 +103,27 @@ class QuadTreeNode {
     if (!boundary.intersects(userLocation, radius)) {
       return foundPoints;
     }
-      for (QuadTreePoint point in points) {
-        double distance = distanceBetween(point, userLocation);
-        if (distance <= radius) {
-          foundPoints.add(point);
-        }
+    for (QuadTreePoint point in points) {
+      double distance = distanceBetween(point, userLocation);
+      if (distance <= radius) {
+        foundPoints.add(point);
       }
+    }
 
-      if (hasSplit) {
-        List<QuadTreePoint> pointsFromNW =
-            northWest!.query(userLocation, radius);
-        foundPoints.addAll(pointsFromNW);
+    if (hasSplit) {
+      List<QuadTreePoint> pointsFromNW = northWest!.query(userLocation, radius);
+      foundPoints.addAll(pointsFromNW);
 
-        List<QuadTreePoint> pointsFromNE =
-            northEast!.query(userLocation, radius);
-        foundPoints.addAll(pointsFromNE);
+      List<QuadTreePoint> pointsFromNE = northEast!.query(userLocation, radius);
+      foundPoints.addAll(pointsFromNE);
 
-        List<QuadTreePoint> pointsFromSW =
-            southWest!.query(userLocation, radius);
-        foundPoints.addAll(pointsFromSW);
+      List<QuadTreePoint> pointsFromSW = southWest!.query(userLocation, radius);
+      foundPoints.addAll(pointsFromSW);
 
-        List<QuadTreePoint> pointsFromSE =
-            southEast!.query(userLocation, radius);
-        foundPoints.addAll(pointsFromSE);
-      }
-    
+      List<QuadTreePoint> pointsFromSE = southEast!.query(userLocation, radius);
+      foundPoints.addAll(pointsFromSE);
+    }
+
     return foundPoints;
   }
 

@@ -1,6 +1,7 @@
 // Repository for managing first aid data
 import 'dart:convert';
 
+import 'package:emergency_buddy/domain/entities/age_group_model.dart';
 import 'package:emergency_buddy/domain/entities/first_aid_home_page_model.dart';
 import 'package:emergency_buddy/domain/entities/first_aid_listing_model.dart';
 import 'package:emergency_buddy/domain/entities/first_aid_model.dart';
@@ -30,12 +31,14 @@ class FirstAidRepositoryImpl implements FirstAidRepository {
   List<FirstAidData> _firstAidDataList = [];
   List<PdfReference> _pdfList = [];
   List<FirstAidListing> _firstAidMainListing = [];
+  List<AgeGroup> _ageGroupListing = [];
 
   /// Simple init function to load all data
   Future<void> loadData({
     String categoriesAssetPath = 'assets/data/first_aid_categories.json',
     String pdfReferencesAssetPath = 'assets/data/pdf.json',
     String listingsAssetPath = 'assets/data/listing.json',
+    String ageGroupAssetPath = 'assets/data/age_group.json',
   }) async {
     debugPrint('Data not loaded yet, loading from assets...');
 
@@ -63,9 +66,17 @@ class FirstAidRepositoryImpl implements FirstAidRepository {
           .map((item) => FirstAidListing.fromJson(item as Map<String, dynamic>))
           .toList();
 
+      // Load age groups
+      final ageGroupJson = await rootBundle.loadString(ageGroupAssetPath);
+      final ageGroupArray = json.decode(ageGroupJson) as List<dynamic>;
+      _ageGroupListing = ageGroupArray
+          .map((item) => AgeGroup.fromJson(item as Map<String, dynamic>))
+          .toList();
+
       debugPrint('Loaded ${_firstAidDataList.length} first aid procedures');
       debugPrint('Loaded ${_pdfList.length} PDF references');
       debugPrint('Loaded ${_firstAidMainListing.length} listings');
+      debugPrint('Loaded ${_ageGroupListing.length} listings');
     } catch (e) {
       debugPrint('Error loading data: $e');
       throw FirstAidRepositoryException('Failed to initialize repository', e);
@@ -74,10 +85,8 @@ class FirstAidRepositoryImpl implements FirstAidRepository {
 
   @override
   Future<List<FirstAidHomePageData>> getHomePageListing() async {
-    // Ensure data is loaded
-    if (_firstAidDataList.isEmpty &&
-        _pdfList.isEmpty &&
-        _firstAidMainListing.isEmpty) {
+    // Ensure listing data is loaded
+    if (_firstAidDataList.isEmpty && _firstAidMainListing.isEmpty) {
       await loadData();
     }
 
@@ -101,6 +110,7 @@ class FirstAidRepositoryImpl implements FirstAidRepository {
                   orElse: () => PdfReference.empty(),
                 )
                 .pdfFilename,
+            pageNumber: listing.page,
             sort: firstAidData.sort,
           );
         })
