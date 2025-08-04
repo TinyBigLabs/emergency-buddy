@@ -68,20 +68,16 @@ class _LandingPageSliverState extends State<LandingPageSliver> {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(UIConstants.mediumSize),
-                      child: Text(
-                        'Nearby Hospitals',
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
+                  child: Padding(
+                    padding: EdgeInsets.all(UIConstants.mediumSize),
+                    child: Text(
+                      'Nearby Safe Zones',
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
                 ),
                 // Hospital section
-                HospitalListing(
-                  userLocation: Point(-0.13311838933852876, 51.52776224324315),
-                ),
+                HospitalListing(),
                 // First Aid Section
                 SliverToBoxAdapter(
                   child: Center(

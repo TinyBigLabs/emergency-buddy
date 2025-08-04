@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get_it/get_it.dart';
 
 import '../../../domain/entities/knowledge_base_model.dart';
@@ -26,8 +28,8 @@ class HospitalListing extends StatefulWidget {
 
   const HospitalListing({
     super.key,
-    required this.userLocation,
-    this.searchRadiusKm = 5.0, // Default search radius
+    this.userLocation = const Point(-0.13311838933852876, 51.52776224324315),
+    this.searchRadiusKm = 10.0, // Default search radius
   });
 
   @override
@@ -43,11 +45,17 @@ class _HospitalListingState extends State<HospitalListing> {
   void initState() {
     super.initState();
     // We fetch the data once when the widget is first created.
+   _nearbyPlacesFuture = _fetchNearbyPlaces();
+  }
 
-    _nearbyPlacesFuture = GetIt.instance<LocationSearchRepo>().findNearby(
-      widget.userLocation,
+   Future<List<KnowledgeBaseElement>>  _fetchNearbyPlaces() async {
+    // We're using the GetIt service locator to get the LocationSearchRepo.
+    return Geolocator.getCurrentPosition().then((position) =>
+   
+     GetIt.instance<LocationSearchRepo>().findNearby(
+      kIsWeb ? widget.userLocation : Point(position.longitude, position.latitude),
       widget.searchRadiusKm,
-    );
+    ));
   }
 
   // Helper function to get the correct icon for the location type.
@@ -82,113 +90,108 @@ class _HospitalListingState extends State<HospitalListing> {
   Widget build(BuildContext context) {
     // The UI structure is identical to yours, just wrapped in a FutureBuilder.
     return SliverToBoxAdapter(
-      child: 
-          SizedBox(
-            height: 180,
-   
-            child: FutureBuilder<List<KnowledgeBaseElement>>(
-              future: _nearbyPlacesFuture,
-              builder: (context, snapshot) {
-                // Handle loading state
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                // Handle error state
-                if (snapshot.hasError) {
-                  return Center(child: Text("Error: ${snapshot.error}"));
-                }
-                // Handle empty state
-                if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                  return const Center(
-                      child: Text("No locations found nearby."));
-                }
+      child: SizedBox(
+        height: 180,
+        child: FutureBuilder<List<KnowledgeBaseElement>>(
+          future: _nearbyPlacesFuture,
+          builder: (context, snapshot) {
+            // Handle loading state
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            // Handle error state
+            if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            }
+            // Handle empty state
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text("No locations found nearby."));
+            }
 
-                // If we have data, we build the same list you designed.
-                final locations = snapshot.data!;
+            // If we have data, we build the same list you designed.
+            final locations = snapshot.data!;
 
-                return ListView.builder(
-                  controller: _controller,
-                  scrollDirection: Axis.horizontal,
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  itemCount: locations.length,
-                  itemBuilder: (context, index) {
-                    final place = locations[index];
-                    final distance = _getDistance(widget.userLocation,
-                        Point(place.location.lon, place.location.lat));
+            return ListView.builder(
+              controller: _controller,
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              itemCount: locations.length,
+              itemBuilder: (context, index) {
+                final place = locations[index];
+                final distance = _getDistance(widget.userLocation,
+                    Point(place.location.lon, place.location.lat));
 
-                    // This is your exact card layout, but with dynamic data.
-                    return Container(
-                      width: 280,
-                      margin: const EdgeInsets.only(right: 16.0),
-                      child: Card(
-                        elevation: 4,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                // This is your exact card layout, but with dynamic data.
+                return Container(
+                  width: 280,
+                  margin: const EdgeInsets.only(right: 16.0),
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
                             children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                      _getIconForType(
-                                          place.type), // Dynamic icon
-                                      color: Colors.red[600],
-                                      size: 24),
-                                  const SizedBox(width: 8),
-                                  Expanded(
-                                    child: Text(
-                                      place.name, // Data from our service
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                              Icon(_getIconForType(place.type), // Dynamic icon
+                                  color: Colors.red[600],
+                                  size: 24),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  place.name, // Data from our service
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ],
-                              ),
-                              const SizedBox(height: 12),
-                              Row(
-                                children: [
-                                  Icon(Icons.location_on,
-                                      color: Colors.grey[600], size: 16),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    '${distance.toStringAsFixed(1)} km away', // Live distance
-                                    style: TextStyle(color: Colors.grey[600]),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  Icon(Icons.phone,
-                                      color: Colors.grey[600], size: 16),
-                                  const SizedBox(width: 4),
-                                  Expanded(
-                                    child: Text(
-                                      place.details.phone,
-                                        // Data from our service
-                                      style: TextStyle(color: Colors.grey[600]),
-                                    ),
-                                  ),
-                                ],
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
                               ),
                             ],
                           ),
-                        ),
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              Icon(Icons.location_on,
+                                  color: Colors.grey[600], size: 16),
+                              const SizedBox(width: 4),
+                              Text(
+                                '${distance.toStringAsFixed(1)} km away', // Live distance
+                                style: TextStyle(color: Colors.grey[600]),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              Icon(Icons.phone,
+                                  color: Colors.grey[600], size: 16),
+                              const SizedBox(width: 4),
+                              Expanded(
+                                child: Text(
+                                  place.details.phone,
+                                  // Data from our service
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 );
               },
-            ),
-          ),
+            );
+          },
+        ),
+      ),
     );
   }
 }

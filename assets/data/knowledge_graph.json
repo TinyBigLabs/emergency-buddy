@@ -212,6 +212,38 @@
       "location": { "lat": 52.4777, "lon": -1.8988 },
       "details": { "address": "Station St, Birmingham B2 4QA", "notes": "The largest and busiest railway station in Birmingham." },
       "keywords": ["station", "train", "new street", "birmingham"]
+    },
+    {
+      "id": "HOS-BHX-02",
+      "name": "City Hospital Birmingham",
+      "type": "Hospital",
+      "location": { "lat": 52.4923, "lon": -1.9367 },
+      "details": { "address": "Dudley Rd, Birmingham B18 7QH", "phone": "0121 507 4440", "notes": "Major NHS hospital serving Birmingham and Sandwell." },
+      "keywords": ["hospital", "emergency", "a&e", "birmingham", "city hospital", "medical"]
+    },
+    {
+      "id": "POL-BHX-01",
+      "name": "Birmingham Central Police Station",
+      "type": "Police Station",
+      "location": { "lat": 52.4795, "lon": -1.9017 },
+      "details": { "address": "Lloyd House, Colmore Circus Queensway, Birmingham B4 6NQ", "phone": "101", "notes": "Main police station in Birmingham city centre." },
+      "keywords": ["police", "safety", "crime", "birmingham", "central police station"]
+    },
+    {
+      "id": "TRANS-BHX-02",
+      "name": "Smethwick Galton Bridge Station",
+      "type": "Transport Hub",
+      "location": { "lat": 52.5014, "lon": -1.9706 },
+      "details": { "address": "High St, Smethwick B66 1HU", "notes": "Major railway interchange serving Smethwick and the West Midlands." },
+      "keywords": ["station", "train", "smethwick", "galton bridge", "transport"]
+    },
+    {
+      "id": "FIRE-BHX-01",
+      "name": "Smethwick Fire Station",
+      "type": "Fire Station",
+      "location": { "lat": 52.4968, "lon": -1.9578 },
+      "details": { "address": "Carters Green, Smethwick B67 7DS", "phone": "999", "notes": "West Midlands Fire Service station covering Smethwick and surrounding areas." },
+      "keywords": ["fire station", "emergency", "rescue", "smethwick"]
     }
   ]
 }
