@@ -1,6 +1,7 @@
 import 'dart:ui' as ui;
 
 import 'package:emergency_buddy/core/utils/constants.dart';
+import 'package:emergency_buddy/presentation/widgets/entry_icon_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class _LanguageWidgetState extends State<LanguageWidget> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(Icons.language, color: Colors.white, size: 20),
+        EntryIconWidget(icon: Icons.language),
         SizedBox(width: UIConstants.smallSize),
         Text(
           "Language: $_language",
