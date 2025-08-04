@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:emergency_buddy/core/utils/constants.dart';
 import 'package:emergency_buddy/presentation/widgets/first_aid/first_aid_listing.dart';
 import 'package:emergency_buddy/presentation/widgets/footer_section/footer_section_sliver_mobile.dart';
@@ -69,7 +71,7 @@ class _LandingPageSliverState extends State<LandingPageSliver> {
                   child: Padding(
                     padding: EdgeInsets.all(UIConstants.mediumSize),
                     child: Text(
-                      'Nearby Hospitals',
+                      'Nearby Safe Zones',
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),

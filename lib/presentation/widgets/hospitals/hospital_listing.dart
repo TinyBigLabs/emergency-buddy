@@ -1,5 +1,12 @@
-import 'package:emergency_buddy/presentation/widgets/entry_icon_widget.dart';
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get_it/get_it.dart';
+
+import '../../../domain/entities/knowledge_base_model.dart';
+import '../../../domain/repositories/location_search_repo.dart';
 
 // Data Models
 class Hospital {
@@ -11,29 +18,103 @@ class Hospital {
   Hospital(this.name, this.distance, this.phone, this.beds);
 }
 
-class HospitalListing extends StatelessWidget {
-  HospitalListing({super.key});
+// The old 'Hospital' data class is no longer needed.
 
-  final List<Hospital> hospitals = [
-    Hospital('Royal Surrey County Hospital', '2.1 km', '+44 1483 571122', ''),
-    Hospital('Frimley Park Hospital', '4.8 km', '+44 1276 604604', 'Limited'),
-    Hospital('St Peter\'s Hospital', '6.2 km', '+44 1932 872000', 'Available'),
-    Hospital('Ashford Hospital', '8.5 km', '+44 1784 884488', 'Full'),
-  ];
+// We've converted your widget to a StatefulWidget to handle the data loading.
+class HospitalListing extends StatefulWidget {
+  // We need to know the user's location to find what's nearby.
+  final Point userLocation;
+  final double searchRadiusKm;
+
+  const HospitalListing({
+    super.key,
+    this.userLocation = const Point(-0.13311838933852876, 51.52776224324315),
+    this.searchRadiusKm = 10.0, // Default search radius
+  });
+
+  @override
+  State<HospitalListing> createState() => _HospitalListingState();
+}
+
+class _HospitalListingState extends State<HospitalListing> {
+  // A FutureBuilder is the best way to handle data that needs to be loaded.
+  late final Future<List<KnowledgeBaseElement>> _nearbyPlacesFuture;
+  ScrollController _controller = new ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    // We fetch the data once when the widget is first created.
+   _nearbyPlacesFuture = _fetchNearbyPlaces();
+  }
+
+   Future<List<KnowledgeBaseElement>>  _fetchNearbyPlaces() async {
+    // We're using the GetIt service locator to get the LocationSearchRepo.
+    return Geolocator.getCurrentPosition().then((position) =>
+   
+     GetIt.instance<LocationSearchRepo>().findNearby(
+      kIsWeb ? widget.userLocation : Point(position.longitude, position.latitude),
+      widget.searchRadiusKm,
+    ));
+  }
+
+
+  // Helper to calculate distance for display.
+  double _getDistance(Point userLocation, Point placeLocation) {
+    const R = 6371.0; // Earth radius in kilometers
+    final dLat = (placeLocation.y - userLocation.y) * (pi / 180.0);
+    final dLon = (placeLocation.x - userLocation.x) * (pi / 180.0);
+    final lat1 = userLocation.y * (pi / 180.0);
+    final lat2 = placeLocation.y * (pi / 180.0);
+
+    final a =
+        pow(sin(dLat / 2), 2) + pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
+    final c = 2 * asin(sqrt(a));
+    return R * c;
+  }
 
   @override
   Widget build(BuildContext context) {
+    // The UI structure is identical to yours, just wrapped in a FutureBuilder.
     return SliverToBoxAdapter(
       child: SizedBox(
         height: 250,
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          itemCount: hospitals.length,
-          itemBuilder: (context, index) => _HospitalCard(hospital: hospitals[index]),
-        ),
-      ),
-    );
+        child: FutureBuilder<List<KnowledgeBaseElement>>(
+          future: _nearbyPlacesFuture,
+          builder: (context, snapshot) {
+            // Handle loading state
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            // Handle error state
+            if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            }
+            // Handle empty state
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text("No locations found nearby."));
+            }
+
+            // If we have data, we build the same list you designed.
+            final locations = snapshot.data!;
+
+            return ListView.builder(
+              controller: _controller,
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              itemCount: locations.length,
+              itemBuilder: (context, index) {
+                final place = locations[index];
+                final distance = _getDistance(widget.userLocation,
+                    Point(place.location.lon, place.location.lat));
+
+                // This is your exact card layout, but with dynamic data.
+                return _HospitalCard(hospital: Hospital(place.name,   '${distance.toStringAsFixed(1)} km away',   place.details.phone, ""));
+                
+             
+              },
+            );
+          })));
   }
 }
 
@@ -203,5 +284,28 @@ class CardHeadingWidget extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+class EntryIconWidget extends StatelessWidget {
+  final IconData icon;
+  final double size;
+
+  const EntryIconWidget({
+    super.key,
+    required this.icon,
+    this.size = 16.0,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.only(right: 2.0),
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Theme.of(context).colorScheme.secondaryContainer,
+        ),
+        child: Icon(icon, size: size));
   }
 }

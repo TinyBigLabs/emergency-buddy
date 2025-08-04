@@ -19,6 +19,7 @@ class _LocationWidgetState extends State<LocationWidget> {
       setState(() {});
     } catch (e) {
       _location = "Failed to fetch location: $e";
+      setState(() {});
     }
   }
 

@@ -2,6 +2,8 @@ import 'package:emergency_buddy/presentation/widgets/shared/buttons/action_butto
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../chat/ui/chat_screen.dart';
+
 class ChatButton extends StatelessWidget {
   const ChatButton({super.key});
 
@@ -22,7 +24,7 @@ class ChatButton extends StatelessWidget {
               content: Text('Opening chat...'),
               actions: [
                 TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> EmergencyBuddyChatScreen())),
                   child: Text('OK'),
                 ),
               ],
