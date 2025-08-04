@@ -26,7 +26,7 @@ dependencies:
   connectivity_plus: ^6.1.4
   network_info_plus: ^6.1.4
   geocoding: ^4.0.0
-  flutter_bloc: ^9.1.1
+  flutter_bloc: ^8.0.1
   provider: ^6.1.5
   freezed: ^3.2.0
   freezed_annotation: ^3.1.0
@@ -45,6 +45,8 @@ dev_dependencies:
   json_serializable: ^6.10.0
   build_web_compilers: ^4.0.4
 
+  flutter_launcher_icons: ^0.13.1
+
 flutter:
   uses-material-design: true
 
@@ -56,6 +58,8 @@ flutter:
     - assets/data/age_group.json
     - assets/data/pdf.json
     - assets/pdf/
+
+# Icon generation config is in flutter_launcher_icons.yaml
 
 first_aid_categories:
   dart:

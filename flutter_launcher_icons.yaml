@@ -1,0 +1,14 @@
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/logo.png"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/icons/logo-transparent.png"
+  remove_alpha_ios: true
+  min_sdk_android: 21
+  background_color_ios: "#FFFFFF"
+  background_color_android: "#FFFFFF"
+  dark_image_path_ios: "assets/icons/logo.png"
+  dark_image_path_android: "assets/icons/logo.png"
+  dark_adaptive_icon_background: "#000000"
+  dark_adaptive_icon_foreground: "assets/icons/logo-transparent.png"
