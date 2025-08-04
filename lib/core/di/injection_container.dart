@@ -3,6 +3,7 @@ import 'package:emergency_buddy/core/di/injection_container.config.dart';
 import 'package:emergency_buddy/core/network/network_info.dart';
 import 'package:emergency_buddy/domain/repositories/first_aid_repository.dart';
 import 'package:emergency_buddy/domain/usecases/get_first_aid_home_screen_listing_usecase.dart';
+import 'package:emergency_buddy/presentation/widgets/chat/bloc/chat_bloc.dart';
 import 'package:emergency_buddy/presentation/widgets/first_aid/blocs/first_aid_cubit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
@@ -10,6 +11,14 @@ import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+
+import '../../data/gemma_chat_datasource.dart';
+import '../../domain/repositories/chat_repo.dart';
+import '../../domain/repositories/location_search_repo.dart';
+import '../../domain/repositories/model_setup_repo.dart';
+import '../../domain/usecases/chat_sendmessage_usecase.dart';
+import '../../domain/usecases/intialise_model_usecase.dart';
+import '../../domain/usecases/setup_model_usecase.dart';
 
 final sl = GetIt.instance;
 
@@ -50,5 +59,25 @@ Future<void> init() async {
     final sharedPreferences = await SharedPreferences.getInstance();
     sl.registerLazySingleton(() => sharedPreferences);
   }
+  sl.registerSingleton<LocationSearchRepo>(
+      LocationSearchRepoImpl()..buildLocationTree());
+
+  // A new instance will be created each time it's requested.
+  sl.registerFactory<GemmaChatDataSource>(() => GemmaChatDataSourceImpl());
+
+  // --- Repositories ---
+  sl.registerLazySingleton<ModelSetupRepository>(
+      () => ModelSetupRepositoryImpl());
+  sl.registerLazySingleton<ChatRepository>(() => ChatRepositoryImpl(sl()));
+
+  // --- Use Cases ---
+  // A new instance will be created each time it's requested.
+sl.registerFactory(() => SetupModelUseCase(sl()));
+  sl.registerFactory(() => InitializeModelUseCase(sl()));
+
+  sl.registerFactory(() => SendMessageUseCase(sl()));
+
+  sl.registerFactory<ChatBloc>(() => ChatBloc(sl(), sl(), sl(), sl()));
+
   await configureDependencies();
 }

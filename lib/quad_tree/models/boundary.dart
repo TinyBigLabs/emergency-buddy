@@ -35,6 +35,6 @@ class Boundary {
     double distance = sqrt(
         pow((closestX - userPoint.x), 2) + pow((closestY - userPoint.y), 2));
 
-    return searchRadius <= distance;
+    return distance <= searchRadius;
   }
 }

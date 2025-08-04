@@ -1,6 +1,8 @@
 import 'package:emergency_buddy/core/utils/constants.dart';
 import 'package:emergency_buddy/domain/repositories/first_aid_repository.dart';
 import 'package:emergency_buddy/presentation/pages/landing_page.dart';
+import 'package:emergency_buddy/presentation/widgets/chat/bloc/chat_bloc.dart';
+import 'package:emergency_buddy/presentation/widgets/chat/bloc/chat_event.dart';
 import 'package:emergency_buddy/presentation/widgets/first_aid/blocs/first_aid_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,8 +22,15 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return RepositoryProvider(
       create: (context) => di.sl<FirstAidRepository>(),
-      child: BlocProvider(
-        create: (context) => di.sl<FirstAidCubit>(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => di.sl<FirstAidCubit>(),
+          ),
+          BlocProvider(
+            create: (context) => di.sl<ChatBloc>()..add(InitializeModelEvent()),
+          ),
+        ],
         child: MaterialApp(
           theme: ThemeData(
             primarySwatch: Colors.purple,

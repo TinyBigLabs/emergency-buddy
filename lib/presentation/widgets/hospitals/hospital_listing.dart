@@ -1,4 +1,12 @@
+import 'dart:math';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:get_it/get_it.dart';
+
+import '../../../domain/entities/knowledge_base_model.dart';
+import '../../../domain/repositories/location_search_repo.dart';
 
 // Data Models
 class Hospital {
@@ -10,53 +18,134 @@ class Hospital {
   Hospital(this.name, this.distance, this.phone, this.beds);
 }
 
-class HospitalListing extends StatelessWidget {
-  HospitalListing({super.key});
+// The old 'Hospital' data class is no longer needed.
 
-  final List<Hospital> hospitals = [
-    Hospital('Royal Surrey County Hospital', '2.1 km', '+44 1483 571122', ''),
-    Hospital('Frimley Park Hospital', '4.8 km', '+44 1276 604604', 'Limited'),
-    Hospital('St Peter\'s Hospital', '6.2 km', '+44 1932 872000', 'Available'),
-    Hospital('Ashford Hospital', '8.5 km', '+44 1784 884488', 'Full'),
-  ];
+// We've converted your widget to a StatefulWidget to handle the data loading.
+class HospitalListing extends StatefulWidget {
+  // We need to know the user's location to find what's nearby.
+  final Point userLocation;
+  final double searchRadiusKm;
+
+  const HospitalListing({
+    super.key,
+    this.userLocation = const Point(-0.13311838933852876, 51.52776224324315),
+    this.searchRadiusKm = 10.0, // Default search radius
+  });
+
+  @override
+  State<HospitalListing> createState() => _HospitalListingState();
+}
+
+class _HospitalListingState extends State<HospitalListing> {
+  // A FutureBuilder is the best way to handle data that needs to be loaded.
+  late final Future<List<KnowledgeBaseElement>> _nearbyPlacesFuture;
+  ScrollController _controller = new ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    // We fetch the data once when the widget is first created.
+   _nearbyPlacesFuture = _fetchNearbyPlaces();
+  }
+
+   Future<List<KnowledgeBaseElement>>  _fetchNearbyPlaces() async {
+    // We're using the GetIt service locator to get the LocationSearchRepo.
+    return Geolocator.getCurrentPosition().then((position) =>
+   
+     GetIt.instance<LocationSearchRepo>().findNearby(
+      kIsWeb ? widget.userLocation : Point(position.longitude, position.latitude),
+      widget.searchRadiusKm,
+    ));
+  }
+
+  // Helper function to get the correct icon for the location type.
+  IconData _getIconForType(String type) {
+    switch (type.toLowerCase()) {
+      case 'hospital':
+        return Icons.local_hospital;
+      case 'police station':
+        return Icons.local_police;
+      case 'transport hub':
+        return Icons.train;
+      default:
+        return Icons.place;
+    }
+  }
+
+  // Helper to calculate distance for display.
+  double _getDistance(Point userLocation, Point placeLocation) {
+    const R = 6371.0; // Earth radius in kilometers
+    final dLat = (placeLocation.y - userLocation.y) * (pi / 180.0);
+    final dLon = (placeLocation.x - userLocation.x) * (pi / 180.0);
+    final lat1 = userLocation.y * (pi / 180.0);
+    final lat2 = placeLocation.y * (pi / 180.0);
+
+    final a =
+        pow(sin(dLat / 2), 2) + pow(sin(dLon / 2), 2) * cos(lat1) * cos(lat2);
+    final c = 2 * asin(sqrt(a));
+    return R * c;
+  }
 
   @override
   Widget build(BuildContext context) {
-    return // Hospital Carousel
-        SliverToBoxAdapter(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            height: 180,
-            child: ListView.builder(
+    // The UI structure is identical to yours, just wrapped in a FutureBuilder.
+    return SliverToBoxAdapter(
+      child: SizedBox(
+        height: 180,
+        child: FutureBuilder<List<KnowledgeBaseElement>>(
+          future: _nearbyPlacesFuture,
+          builder: (context, snapshot) {
+            // Handle loading state
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            // Handle error state
+            if (snapshot.hasError) {
+              return Center(child: Text("Error: ${snapshot.error}"));
+            }
+            // Handle empty state
+            if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text("No locations found nearby."));
+            }
+
+            // If we have data, we build the same list you designed.
+            final locations = snapshot.data!;
+
+            return ListView.builder(
+              controller: _controller,
               scrollDirection: Axis.horizontal,
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
-              itemCount: hospitals.length,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              itemCount: locations.length,
               itemBuilder: (context, index) {
-                final hospital = hospitals[index];
+                final place = locations[index];
+                final distance = _getDistance(widget.userLocation,
+                    Point(place.location.lon, place.location.lat));
+
+                // This is your exact card layout, but with dynamic data.
                 return Container(
                   width: 280,
-                  margin: EdgeInsets.only(right: 16.0),
+                  margin: const EdgeInsets.only(right: 16.0),
                   child: Card(
                     elevation: 4,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Padding(
-                      padding: EdgeInsets.all(16.0),
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Row(
                             children: [
-                              Icon(Icons.local_hospital,
-                                  color: Colors.red[600], size: 24),
-                              SizedBox(width: 8),
+                              Icon(_getIconForType(place.type), // Dynamic icon
+                                  color: Colors.red[600],
+                                  size: 24),
+                              const SizedBox(width: 8),
                               Expanded(
                                 child: Text(
-                                  hospital.name,
-                                  style: TextStyle(
+                                  place.name, // Data from our service
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -66,27 +155,28 @@ class HospitalListing extends StatelessWidget {
                               ),
                             ],
                           ),
-                          SizedBox(height: 12),
+                          const SizedBox(height: 12),
                           Row(
                             children: [
                               Icon(Icons.location_on,
                                   color: Colors.grey[600], size: 16),
-                              SizedBox(width: 4),
+                              const SizedBox(width: 4),
                               Text(
-                                hospital.distance,
+                                '${distance.toStringAsFixed(1)} km away', // Live distance
                                 style: TextStyle(color: Colors.grey[600]),
                               ),
                             ],
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Row(
                             children: [
                               Icon(Icons.phone,
                                   color: Colors.grey[600], size: 16),
-                              SizedBox(width: 4),
+                              const SizedBox(width: 4),
                               Expanded(
                                 child: Text(
-                                  hospital.phone,
+                                  place.details.phone,
+                                  // Data from our service
                                   style: TextStyle(color: Colors.grey[600]),
                                 ),
                               ),
@@ -98,9 +188,9 @@ class HospitalListing extends StatelessWidget {
                   ),
                 );
               },
-            ),
-          ),
-        ],
+            );
+          },
+        ),
       ),
     );
   }

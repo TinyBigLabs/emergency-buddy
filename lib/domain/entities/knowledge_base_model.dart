@@ -24,6 +24,7 @@ class KnowledgeBaseElement {
   final String type;
   final List<String> keywords;
   final Details details;
+  final Location location;
 
   KnowledgeBaseElement({
     required this.id,
@@ -31,30 +32,32 @@ class KnowledgeBaseElement {
     required this.type,
     required this.keywords,
     required this.details,
+    required this.location,
   });
 
   // --- PARSER METHOD ---
   // This factory constructor parses each element in the knowledge base list.
   factory KnowledgeBaseElement.fromJson(Map<String, dynamic> json) {
     return KnowledgeBaseElement(
-      id: json['id'],
-      name: json['name'],
-      type: json['type'],
-      // Ensure keywords are parsed as a List of Strings.
-      keywords: List<String>.from(json['keywords']),
-      // Delegate the parsing of the 'details' object to the Details class.
-      details: Details.fromJson(json['details']),
-    );
+        id: json['id'],
+        name: json['name'],
+        type: json['type'],
+        // Ensure keywords are parsed as a List of Strings.
+        keywords: List<String>.from(json['keywords']),
+        // Delegate the parsing of the 'details' object to the Details class.
+        details: Details.fromJson(json['details']),
+        location: Location.fromJson(json['location']));
   }
 
   @override
   String toString() {
-    return "Knowledge Base Element {id: $id, name: $name, type: $type, keywords: $keywords, details: ${details.toString()}";
+    return "Knowledge Base Element {id: $id, name: $name, type: $type, keywords: $keywords, details: ${details.toString()} location: ${location.toString()}";
   }
 }
 
 class Details {
   final String address;
+  final String phone;
   final String purpose;
   final String capacity;
   final String frequency;
@@ -66,6 +69,7 @@ class Details {
 
   Details({
     required this.address,
+    required this.phone,
     required this.purpose,
     required this.capacity,
     required this.frequency,
@@ -88,6 +92,7 @@ class Details {
       capacity: json['capacity'] ?? '',
       frequency: json['frequency'] ?? '',
       information: json['information'] ?? '',
+              phone: json['phone'] ?? '',
       criticalSigns: json['critical_signs'] ?? '',
       instructions: json['instructions'] ?? '',
       symptoms: json['symptoms'] ?? '',
@@ -96,6 +101,28 @@ class Details {
   }
   @override
   String toString() {
-    return "Details {address: $address, purpose: $purpose, capacity: $capacity, frequency: $frequency, information: $information, criticalSigns: $criticalSigns, instructions: $instructions, symptoms: $symptoms, treatment: $treatment";
+    return "Details {address: $address, phone: $phone, purpose: $purpose, capacity: $capacity, frequency: $frequency, information: $information, criticalSigns: $criticalSigns, instructions: $instructions, symptoms: $symptoms, treatment: $treatment";
+  }
+}
+
+class Location {
+  final double lat;
+  final double lon;
+
+  Location({
+    required this.lat,
+    required this.lon,
+  });
+
+  // --- PARSER METHOD ---
+  factory Location.fromJson(Map<String, dynamic> json) {
+    return Location(
+      lat: json['lat'],
+      lon: json['lon'],
+    );
+  }
+  @override
+  String toString() {
+    return "Location {lat: $lat, lon: $lon}";
   }
 }
