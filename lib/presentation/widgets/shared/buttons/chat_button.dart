@@ -12,8 +12,8 @@ class ChatButton extends StatelessWidget {
     return ActionButton(
       icon: Icons.chat_bubble,
       label: 'Chat',
-      backgroundColor: Colors.blueGrey,
-      foregroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
+      foregroundColor: Theme.of(context).colorScheme.onSurface,
       onTap: () {
         // Handle camera action
         showDialog(

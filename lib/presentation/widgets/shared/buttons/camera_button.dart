@@ -1,5 +1,4 @@
 import 'package:emergency_buddy/presentation/widgets/shared/buttons/action_button_template.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CameraButton extends StatelessWidget {
@@ -8,10 +7,10 @@ class CameraButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ActionButton(
-      icon: Icons.camera,
+      icon: Icons.camera_alt,
       label: 'Camera',
-      backgroundColor: Colors.blueGrey,
-      foregroundColor: Colors.white,
+      backgroundColor: Colors.transparent,
+      foregroundColor: Theme.of(context).colorScheme.onSurface,
       onTap: () {
         // Handle camera action
         showDialog(

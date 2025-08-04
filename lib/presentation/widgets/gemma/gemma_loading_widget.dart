@@ -19,8 +19,7 @@ class _GemmaLoadingWidgetState extends State<GemmaLoadingWidget> {
   late final AndroidDeviceInfo androidInfo;
   late final IosDeviceInfo iosInfo;
   late final GemmaDownloaderDataSource _downloaderDataSource;
-  final ValueNotifier<String> _loadingMessage =
-      ValueNotifier('Initializing, loading Gemma...');
+  final ValueNotifier<String> _loadingMessage = ValueNotifier('Initializing, loading Gemma...');
 
   Future<bool> loadModel() async {
     if (kIsWeb) {
@@ -61,8 +60,7 @@ class _GemmaLoadingWidgetState extends State<GemmaLoadingWidget> {
 
     await _downloaderDataSource.downloadModel(
       onProgress: (progress) {
-        _loadingMessage.value =
-            'Downloading model: ${(progress * 100).toStringAsFixed(1)}%';
+        _loadingMessage.value = 'Downloading model: ${(progress * 100).toStringAsFixed(1)}%';
       },
     );
 
@@ -108,18 +106,22 @@ class _GemmaLoadingWidgetState extends State<GemmaLoadingWidget> {
           ? Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
-                color: Colors.yellow,
-                borderRadius: BorderRadius.circular(8.0),
+                color: Theme.of(context).colorScheme.surfaceContainer,
+                borderRadius: BorderRadius.circular(16.0),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  CircularProgressIndicator(),
+                  CircularProgressIndicator(
+                    color: Theme.of(context).colorScheme.primary,
+                    strokeCap: StrokeCap.round,
+                    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                  ),
                   SizedBox(height: 16),
                   ValueListenableBuilder<String>(
                     valueListenable: _loadingMessage,
                     builder: (context, value, child) {
-                      return Text(value);
+                      return Text(value, style: Theme.of(context).textTheme.bodyMedium);
                     },
                   ),
                 ],

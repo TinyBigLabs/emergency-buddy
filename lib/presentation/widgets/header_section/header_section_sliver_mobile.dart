@@ -14,6 +14,7 @@ class SliverTopBarMobile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
+        spacing: UIConstants.smallSize,
         children: [LanguageWidget(), LocationWidget()],
       ),
     );

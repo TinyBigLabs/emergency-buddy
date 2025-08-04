@@ -1,6 +1,6 @@
 import 'package:emergency_buddy/core/location/gps_location.dart';
 import 'package:emergency_buddy/core/utils/constants.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:emergency_buddy/presentation/widgets/entry_icon_widget.dart';
 import 'package:flutter/material.dart';
 
 class LocationWidget extends StatefulWidget {
@@ -33,12 +33,17 @@ class _LocationWidgetState extends State<LocationWidget> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(Icons.gps_fixed, color: Colors.white, size: 20),
+        EntryIconWidget(icon: Icons.gps_fixed),
         SizedBox(width: UIConstants.smallSize),
-        Text(
-          "Location: $_location",
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
+        Expanded(
+          child: Text(
+            "Location: $_location",
+            style: Theme.of(context).textTheme.bodyLarge,
+            maxLines: 2,
+            overflow: TextOverflow.visible,
+            softWrap: true,
+          ),
+        )
       ],
     );
   }

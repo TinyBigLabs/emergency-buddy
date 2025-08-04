@@ -58,19 +58,6 @@ class _HospitalListingState extends State<HospitalListing> {
     ));
   }
 
-  // Helper function to get the correct icon for the location type.
-  IconData _getIconForType(String type) {
-    switch (type.toLowerCase()) {
-      case 'hospital':
-        return Icons.local_hospital;
-      case 'police station':
-        return Icons.local_police;
-      case 'transport hub':
-        return Icons.train;
-      default:
-        return Icons.place;
-    }
-  }
 
   // Helper to calculate distance for display.
   double _getDistance(Point userLocation, Point placeLocation) {
@@ -91,7 +78,7 @@ class _HospitalListingState extends State<HospitalListing> {
     // The UI structure is identical to yours, just wrapped in a FutureBuilder.
     return SliverToBoxAdapter(
       child: SizedBox(
-        height: 180,
+        height: 250,
         child: FutureBuilder<List<KnowledgeBaseElement>>(
           future: _nearbyPlacesFuture,
           builder: (context, snapshot) {
@@ -122,76 +109,203 @@ class _HospitalListingState extends State<HospitalListing> {
                     Point(place.location.lon, place.location.lat));
 
                 // This is your exact card layout, but with dynamic data.
-                return Container(
-                  width: 280,
-                  margin: const EdgeInsets.only(right: 16.0),
-                  child: Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              Icon(_getIconForType(place.type), // Dynamic icon
-                                  color: Colors.red[600],
-                                  size: 24),
-                              const SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  place.name, // Data from our service
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 12),
-                          Row(
-                            children: [
-                              Icon(Icons.location_on,
-                                  color: Colors.grey[600], size: 16),
-                              const SizedBox(width: 4),
-                              Text(
-                                '${distance.toStringAsFixed(1)} km away', // Live distance
-                                style: TextStyle(color: Colors.grey[600]),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Row(
-                            children: [
-                              Icon(Icons.phone,
-                                  color: Colors.grey[600], size: 16),
-                              const SizedBox(width: 4),
-                              Expanded(
-                                child: Text(
-                                  place.details.phone,
-                                  // Data from our service
-                                  style: TextStyle(color: Colors.grey[600]),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
+                return _HospitalCard(hospital: Hospital(place.name,   '${distance.toStringAsFixed(1)} km away',   place.details.phone, ""));
+                
+             
               },
             );
-          },
+          })));
+  }
+}
+
+class _HospitalCard extends StatelessWidget {
+  final Hospital hospital;
+  const _HospitalCard({required this.hospital});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: AspectRatio(
+        aspectRatio: 3 / 2,
+        child: Card(
+          elevation: 4,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(18.0),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CardHeadingWidget(hospital: hospital),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    EntryIconWidget(icon: Icons.location_on),
+                    const SizedBox(width: 4),
+                    Text(hospital.distance, style: Theme.of(context).textTheme.bodyMedium),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    EntryIconWidget(icon: Icons.phone),
+                    const SizedBox(width: 4),
+                    Expanded(
+                      child: Text(hospital.phone, style: Theme.of(context).textTheme.bodyMedium),
+                    ),
+                  ],
+                ),
+                Spacer(),
+                ActionButtonsWidget(
+                  onCall: () {
+                    // Implement call functionality
+                  },
+                  onLocate: () {
+                    // Implement locate functionality
+                  },
+                  onInfo: () {
+                    // Implement info functionality
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
+  }
+}
+
+class ActionButtonsWidget extends StatelessWidget {
+  final VoidCallback onCall;
+  final VoidCallback onLocate;
+  final VoidCallback onInfo;
+
+  const ActionButtonsWidget(
+      {super.key, required this.onCall, required this.onLocate, required this.onInfo});
+
+  @override
+  Widget build(BuildContext context) {
+    final BorderRadius leftRadius = const BorderRadius.only(
+      topLeft: Radius.circular(24),
+      bottomLeft: Radius.circular(24),
+    );
+    final BorderRadius rightRadius = const BorderRadius.only(
+      topRight: Radius.circular(24),
+      bottomRight: Radius.circular(24),
+    );
+    final BorderRadius centerRadius = BorderRadius.circular(4.0);
+
+    return Row(
+      children: [
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            shape: RoundedRectangleBorder(
+              borderRadius: leftRadius,
+            ),
+          ),
+          onPressed: onCall,
+          child: Row(
+            children: [
+              Padding(padding: EdgeInsets.only(right: 8.0), child: Icon(Icons.phone)),
+              Text('Call', style: Theme.of(context).textTheme.bodyMedium),
+            ],
+          ),
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            shape: RoundedRectangleBorder(
+              borderRadius: centerRadius,
+            ),
+          ),
+          onPressed: onLocate,
+          child: Row(
+            children: [
+              Padding(padding: EdgeInsets.only(right: 8.0), child: Icon(Icons.location_on)),
+              Text('Locate', style: Theme.of(context).textTheme.bodyMedium),
+            ],
+          ),
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+            shape: RoundedRectangleBorder(borderRadius: rightRadius),
+          ),
+          onPressed: onInfo,
+          child: Row(
+            children: [
+              Padding(padding: EdgeInsets.only(right: 8.0), child: Icon(Icons.info)),
+              Text('Info', style: Theme.of(context).textTheme.bodyMedium),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class CardHeadingWidget extends StatelessWidget {
+  const CardHeadingWidget({
+    super.key,
+    required this.hospital,
+  });
+
+  final Hospital hospital;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          margin: const EdgeInsets.only(right: 2.0),
+          padding: const EdgeInsets.all(8.0),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: Theme.of(context).colorScheme.errorContainer,
+          ),
+          child: Icon(
+            Icons.local_hospital,
+            size: 32.0,
+            color: Theme.of(context).colorScheme.onErrorContainer,
+          ),
+        ),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            hospital.name,
+            style: Theme.of(context).textTheme.titleLarge,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class EntryIconWidget extends StatelessWidget {
+  final IconData icon;
+  final double size;
+
+  const EntryIconWidget({
+    super.key,
+    required this.icon,
+    this.size = 16.0,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: const EdgeInsets.only(right: 2.0),
+        padding: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Theme.of(context).colorScheme.secondaryContainer,
+        ),
+        child: Icon(icon, size: size));
   }
 }

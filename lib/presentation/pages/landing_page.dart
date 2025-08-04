@@ -80,13 +80,11 @@ class _LandingPageSliverState extends State<LandingPageSliver> {
                 HospitalListing(),
                 // First Aid Section
                 SliverToBoxAdapter(
-                  child: Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(UIConstants.mediumSize),
-                      child: Text(
-                        'First Aid',
-                        style: Theme.of(context).textTheme.headlineMedium,
-                      ),
+                  child: Padding(
+                    padding: EdgeInsets.all(UIConstants.mediumSize),
+                    child: Text(
+                      'First Aid',
+                      style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
                 ),
@@ -110,16 +108,10 @@ class _LandingPageSliverState extends State<LandingPageSliver> {
                                   _isSelected[i] = i == index;
                                 }
                                 index == 0
-                                    ? context
-                                        .read<FirstAidCubit>()
-                                        .setAgeGroup("adult")
+                                    ? context.read<FirstAidCubit>().setAgeGroup("adult")
                                     : index == 1
-                                        ? context
-                                            .read<FirstAidCubit>()
-                                            .setAgeGroup("child")
-                                        : context
-                                            .read<FirstAidCubit>()
-                                            .setAgeGroup("baby");
+                                        ? context.read<FirstAidCubit>().setAgeGroup("child")
+                                        : context.read<FirstAidCubit>().setAgeGroup("baby");
                               });
                             },
                             borderRadius: BorderRadius.circular(8.0),
@@ -127,9 +119,7 @@ class _LandingPageSliverState extends State<LandingPageSliver> {
                             fillColor: Theme.of(context).primaryColorDark,
                             color: Colors.black,
                             constraints: BoxConstraints.expand(
-                              width: MediaQuery.of(context).size.width *
-                                  0.9 /
-                                  _isSelected.length,
+                              width: MediaQuery.of(context).size.width * 0.9 / _isSelected.length,
                             ),
                             children: [
                               Column(

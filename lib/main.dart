@@ -33,7 +33,8 @@ class App extends StatelessWidget {
         ],
         child: MaterialApp(
           theme: ThemeData(
-            primarySwatch: Colors.purple,
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           ),
           home: LandingPageSliver(
             title: UIConstants.appName,
