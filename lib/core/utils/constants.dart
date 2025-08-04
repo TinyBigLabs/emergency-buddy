@@ -13,4 +13,5 @@ class UIConstants {
 
   //tool name constants
   static const String kSearchDatabaseFunctionTool = 'search_database';
+  static const String kFindNearbyLocationsFunctionTool = 'find_nearby_locations';
 }

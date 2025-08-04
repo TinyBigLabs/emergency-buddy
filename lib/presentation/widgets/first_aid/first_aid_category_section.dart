@@ -1,4 +1,5 @@
 import 'package:emergency_buddy/core/utils/constants.dart';
+import 'package:emergency_buddy/domain/entities/emergency_message_model.dart';
 import 'package:emergency_buddy/domain/entities/first_aid_home_page_model.dart';
 import 'package:emergency_buddy/presentation/widgets/first_aid/blocs/first_aid_cubit.dart';
 import 'package:emergency_buddy/presentation/widgets/shared/buttons/camera_button.dart';
@@ -72,7 +73,7 @@ class FirstAidCategorySectionTile extends StatelessWidget {
                             Text(
                                 "Ask Gemma a question specific to $firstAidCategory:", textAlign: TextAlign.center,),
                             SizedBox(height: UIConstants.smallSize),
-                            ChatButton(),
+                            ChatButton(message: EmergencyMessageModel( firstAidCategory, "en", "UK", false),),
                             SizedBox(height: UIConstants.smallSize),
                             Text(
                                 "Upload an image and Gemma will analyse this for you:", textAlign: TextAlign.center),
@@ -102,7 +103,7 @@ class FirstAidCategorySectionTile extends StatelessWidget {
                         SizedBox(height: UIConstants.smallSize),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [CameraButton(), ChatButton()],
+                          children: [CameraButton(), ChatButton(message: EmergencyMessageModel( firstAidCategory, "en", "UK", false),),],
                         ),
                         SizedBox(height: UIConstants.smallSize),
                         PDFDisplayMobile(

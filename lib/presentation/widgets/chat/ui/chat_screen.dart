@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gemma/core/message.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../bloc/chat_bloc.dart';
@@ -9,9 +10,9 @@ import '../bloc/chat_event.dart';
 import '../bloc/chat_state.dart';
 import 'widgets/chat_widget.dart';
 
-
 class EmergencyBuddyChatScreen extends StatefulWidget {
-  const EmergencyBuddyChatScreen({super.key});
+  final Message? supplementaryMessage;
+  const EmergencyBuddyChatScreen({super.key,  this.supplementaryMessage});
 
   @override
   State<EmergencyBuddyChatScreen> createState() =>
@@ -21,6 +22,7 @@ class EmergencyBuddyChatScreen extends StatefulWidget {
 class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
   final ImagePicker _imagePicker = ImagePicker();
   Uint8List? _selectedImage;
+  bool _hasAlreadySentSupplementaryMessage = false;
   final _textController = TextEditingController();
 
   void _sendMessage(bool isResponding) {
@@ -59,9 +61,17 @@ class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _textController.dispose();
+    context.read<ChatBloc>().close();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Emergency Buddy')),
+      appBar: AppBar(title: const Text('Emergency Buddy'), ),
       body: BlocConsumer<ChatBloc, ChatState>(
         listener: (context, state) {
           if (state is ChatError) {
@@ -104,6 +114,13 @@ class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
           }
 
           if (state is ChatReady) {
+            if (widget.supplementaryMessage != null && !_hasAlreadySentSupplementaryMessage){
+            context.read<ChatBloc>().add(SendMessageEvent(
+                text: widget.supplementaryMessage!.text,
+                image: widget.supplementaryMessage!.imageBytes));
+                _hasAlreadySentSupplementaryMessage = true;
+            }
+            
             return Column(
               children: [
                 Expanded(
@@ -118,20 +135,21 @@ class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
                     },
                   ),
                 ),
-                state.isResponding ?
-                  const Padding(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                      child: Row(
-                        children: [
-                          SizedBox.square(
-                              dimension: 20,
-                              child:
-                                  CircularProgressIndicator(strokeWidth: 2.5)),
-                          SizedBox(width: 12),
-                          Text('Emergency Buddy is thinking...'),
-                        ],
-                      )) : SizedBox.shrink(),
+                state.isResponding
+                    ? const Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 16.0, vertical: 8.0),
+                        child: Row(
+                          children: [
+                            SizedBox.square(
+                                dimension: 20,
+                                child: CircularProgressIndicator(
+                                    strokeWidth: 2.5)),
+                            SizedBox(width: 12),
+                            Text('Emergency Buddy is thinking...'),
+                          ],
+                        ))
+                    : SizedBox.shrink(),
                 _buildChatInputArea(state.isResponding),
               ],
             );
@@ -162,35 +180,43 @@ class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              // if (_selectedImage != null)
-                // Widget to show image preview
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _textController,
-                        decoration: InputDecoration(
-                          hintText: 'Ask for help...',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                        ),
-                        onSubmitted: (_) => _sendMessage(isResponding),
+              if (_selectedImage != null)
+                Align(
+                  alignment: Alignment.centerLeft,
+                child:
+                Padding(
+                  padding: EdgeInsetsGeometry.all(10),
+                  child: 
+                 Image.memory(
+                  _selectedImage!,
+                  height: 100,
+                ))),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _textController,
+                      decoration: InputDecoration(
+                        hintText: 'Ask for help...',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20)),
                       ),
+                      onSubmitted: (_) => _sendMessage(isResponding),
                     ),
-                   if(!kIsWeb) ...[
-                   IconButton(
+                  ),
+                  if (!kIsWeb) ...[
+                    IconButton(
                       icon: const Icon(Icons.photo),
                       onPressed: _pickImage,
                     ),
-                   ],
-                    IconButton(
-                      icon: const Icon(Icons.send),
-                      onPressed: isResponding
-                          ? null
-                          : () => _sendMessage(isResponding),
-                    ),
                   ],
-                ),
+                  IconButton(
+                    icon: const Icon(Icons.send),
+                    onPressed:
+                        isResponding ? null : () => _sendMessage(isResponding),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
