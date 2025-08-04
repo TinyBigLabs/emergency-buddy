@@ -12,14 +12,18 @@ class CustomSliverAppBar extends SliverPersistentHeaderDelegate {
   });
 
   @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     final progress = shrinkOffset / maxExtent;
     final isCollapsed = progress >= 0.8;
     final statusBarHeight = MediaQuery.of(context).padding.top;
 
     return Container(
-      color: Theme.of(context).colorScheme.inversePrimary,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(UIConstants.largeSize),
+        ),
+        color: Theme.of(context).colorScheme.primaryContainer,
+      ),
       child: Stack(
         children: [
           // Header title - always visible
@@ -30,7 +34,7 @@ class CustomSliverAppBar extends SliverPersistentHeaderDelegate {
             child: Center(
               child: Text(
                 title,
-                style: Theme.of(context).textTheme.headlineSmall,
+                style: Theme.of(context).textTheme.headlineMedium,
                 textAlign: TextAlign.center,
               ),
             ),

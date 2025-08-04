@@ -15,23 +15,24 @@ class FooterSectionMobile extends StatelessWidget {
       right: 0,
       bottom: 0,
       child: Container(
+        margin: EdgeInsets.all(UIConstants.mediumSize),
         padding: EdgeInsets.all(UIConstants.mediumSize),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.inversePrimary,
+          color: Theme.of(context).colorScheme.surfaceContainer,
+          borderRadius: BorderRadius.all(
+            Radius.circular(UIConstants.largeSize),
+          ),
           boxShadow: [
             BoxShadow(
-              color: Colors.black26,
-              blurRadius: 10,
-              offset: Offset(0, -2),
+              color: Theme.of(context).colorScheme.shadow.withAlpha(80),
+              blurRadius: 12,
+              offset: Offset(0, 2),
             ),
           ],
         ),
-        child: Padding(
-          padding: EdgeInsets.only(bottom: UIConstants.extraLargeSize),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [ChatButton(), CallButton(), CameraButton()],
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [ChatButton(), CallButton(), CameraButton()],
         ),
       ),
     );

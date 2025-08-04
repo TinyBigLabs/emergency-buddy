@@ -1,5 +1,4 @@
 import 'package:emergency_buddy/presentation/widgets/shared/buttons/action_button_template.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CallButton extends StatelessWidget {
@@ -9,9 +8,9 @@ class CallButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ActionButton(
       icon: Icons.phone,
-      label: 'Call 999',
-      backgroundColor: Colors.red,
-      foregroundColor: Colors.white,
+      label: 'Call SOS',
+      backgroundColor: Theme.of(context).colorScheme.error,
+      foregroundColor: Theme.of(context).colorScheme.onError,
       onTap: () {
         // Handle emergency call
         showDialog(
