@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class UIConstants {
   static const String appName = "Emergency Buddy";
 
