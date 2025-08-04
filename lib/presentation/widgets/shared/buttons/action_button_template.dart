@@ -23,7 +23,7 @@ class ActionButton extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(25),
+          borderRadius: BorderRadius.circular(15),
           boxShadow: [
             BoxShadow(
               color: backgroundColor.withOpacity(0.3),

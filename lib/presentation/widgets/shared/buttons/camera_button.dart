@@ -10,7 +10,7 @@ class CameraButton extends StatelessWidget {
     return ActionButton(
       icon: Icons.camera,
       label: 'Camera',
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.blueGrey,
       foregroundColor: Colors.white,
       onTap: () {
         // Handle camera action

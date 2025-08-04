@@ -1,6 +1,8 @@
 import 'package:emergency_buddy/core/utils/constants.dart';
 import 'package:emergency_buddy/domain/entities/first_aid_home_page_model.dart';
 import 'package:emergency_buddy/presentation/widgets/first_aid/blocs/first_aid_cubit.dart';
+import 'package:emergency_buddy/presentation/widgets/shared/buttons/camera_button.dart';
+import 'package:emergency_buddy/presentation/widgets/shared/buttons/chat_button.dart';
 import 'package:emergency_buddy/presentation/widgets/shared/pdf/pdf_display_mobile.dart';
 import 'package:emergency_buddy/presentation/widgets/shared/pdf/pdf_display_web.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +13,7 @@ class FirstAidCategorySectionTile extends StatelessWidget {
   final List<FirstAidHomePageData> firstAidSectionData;
   final String firstAidCategory;
   final String ageGroup;
+
   const FirstAidCategorySectionTile(
       {super.key,
       required this.firstAidSectionData,
@@ -52,16 +55,61 @@ class FirstAidCategorySectionTile extends StatelessWidget {
           Padding(
             padding: EdgeInsets.all(UIConstants.mediumSize),
             child: SizedBox(
-              width: 500,
+              width: kIsWeb? 1000 : 500,
               height: 500,
               child: kIsWeb
-                  ? PDFDisplayWeb(
-                      pdfUrl: filteredCategories.first.pdf,
-                      pageNumber: filteredCategories.first.pageNumber,
-                    )
-                  : PDFDisplayMobile(
-                      pdfFileName: filteredCategories.first.pdf,
-                      pageID: filteredCategories.first.pageNumber),
+                  ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(height: UIConstants.largeSize),
+                            Text(
+                                "Ask Gemma a question specific to $firstAidCategory:", textAlign: TextAlign.center,),
+                            SizedBox(height: UIConstants.smallSize),
+                            ChatButton(),
+                            SizedBox(height: UIConstants.smallSize),
+                            Text(
+                                "Upload an image and Gemma will analyse this for you:", textAlign: TextAlign.center),
+                            SizedBox(height: UIConstants.smallSize),
+                            CameraButton(),
+
+                          ],
+                        ),
+                      ),
+                Expanded(
+                  flex: 1,
+                  // Using the first item in the filtered list for web display
+                  child: PDFDisplayWeb(
+                    pdfUrl: filteredCategories.first.pdf,
+                    pageNumber: filteredCategories.first.pageNumber,
+                  ),
+                ),
+                    ])
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Upload an image or ask Gemma a question specific to $firstAidCategory:",
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(height: UIConstants.smallSize),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [CameraButton(), ChatButton()],
+                        ),
+                        SizedBox(height: UIConstants.smallSize),
+                        PDFDisplayMobile(
+                            pdfFileName: filteredCategories.first.pdf,
+                            pageID: filteredCategories.first.pageNumber),
+                      ],
+                    ),
             ),
           ),
         ],

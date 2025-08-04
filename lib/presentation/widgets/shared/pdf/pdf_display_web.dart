@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pdf_render/pdf_render_widgets.dart';
+import 'package:pdfx/pdfx.dart';
 
 class PDFDisplayWeb extends StatefulWidget {
   final String pdfUrl; // URL of the PDF file
@@ -12,16 +12,14 @@ class PDFDisplayWeb extends StatefulWidget {
 }
 
 class _PDFDisplayWebState extends State<PDFDisplayWeb> {
-  PdfViewerController? controller;
-
   @override
   Widget build(BuildContext context) {
-    return PdfViewer.openAsset('pdf/bleeding.pdf', params: PdfViewerParams(
-        // called when the controller is fully initialized
-        onViewerControllerInitialized: (PdfViewerController c) {
-      controller = c;
-      controller?.goToPage(
-          pageNumber: widget.pageNumber); // scrolling animation to page 3.
-    }));
+    final pdfPinchController = PdfControllerPinch(
+      document: PdfDocument.openAsset('assets/pdf/${widget.pdfUrl}'),
+      initialPage: widget.pageNumber, // default page number is 1
+    );
+    return PdfViewPinch(
+      controller: pdfPinchController,
+    );
   }
 }
