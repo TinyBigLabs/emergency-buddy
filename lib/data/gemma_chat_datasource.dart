@@ -1,8 +1,14 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_gemma/core/model.dart';
 import 'package:flutter_gemma/flutter_gemma.dart';
+import 'package:geolocator/geolocator.dart';
+
+import '../core/utils/constants.dart';
+import '../domain/repositories/knowledge_graph_repo.dart';
+import '../domain/repositories/location_search_repo.dart';
 
 abstract class GemmaChatDataSource {
   Future<void> initialize(String? modelPath);
@@ -12,13 +18,17 @@ abstract class GemmaChatDataSource {
 class GemmaChatDataSourceImpl implements GemmaChatDataSource {
   InferenceChat? _chat;
 
+  final KnowledgeGraphRepo _knowledgeGraphRepo = KnowledgeGraphRepo();
+  final LocationSearchRepo _locationSearchRepo = LocationSearchRepoImpl();
+
   @override
   Future<void> initialize(String? modelPath) async {
     final gemma = FlutterGemmaPlugin.instance;
-    if(kIsWeb){
-    await gemma.modelManager.installModelFromAsset("assets/gemma/Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task");
-    }else{
-       await gemma.modelManager.setModelPath(modelPath!);
+    if (kIsWeb) {
+      await gemma.modelManager.installModelFromAsset(
+          "assets/gemma/Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task");
+    } else {
+      await gemma.modelManager.setModelPath(modelPath!);
     }
 
     final inferenceModel = await gemma.createModel(
@@ -33,7 +43,7 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
       tools: [
         // Add your Tool definitions here if you use function calling
         const Tool(
-          name: 'search_database',
+          name: UIConstants.kSearchDatabaseFunctionTool,
           description:
               'Searches the local knowledge graph for a specific place, like a hospital or food bank. Use this to find details like an address or phone number. It can handle partial names and minor typos.',
           parameters: {
@@ -49,7 +59,7 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
           },
         ),
         const Tool(
-          name: 'find_nearby_locations',
+          name: UIConstants.kFindNearbyLocationsFunctionTool,
           description:
               'Finds nearby points of interest like emergency shelters, hospitals, or radio stations based on the user\'s current latitude and longitude. Use this when the user asks "what is near me?" or asks for the closest location for help.',
           parameters: {
@@ -112,8 +122,56 @@ Adhere to the following directives at all times:
       if (modelResponse is TextResponse) {
         yield modelResponse.token;
       } else if (modelResponse is FunctionCallResponse) {
-        // Implement function call handling if needed
+        yield*  _handleFunctionCall(modelResponse);
       }
     }
+  }
+
+  // This private method is the core of handling the function call.
+  /// It acts as a router to the correct repository.
+ Stream<String> _handleFunctionCall(FunctionCallResponse call) async* {
+    final args = call.args;
+    String toolResult;
+    if (call.name == UIConstants.kSearchDatabaseFunctionTool) {
+      if (args.containsKey('query') &&
+          args['query'] != null &&
+          (args['query'] as String).isNotEmpty) {
+        // --- 1. Name-based Search (Fuzzy Text) ---
+        final query = args['query'] as String;
+        final closestMatch = await _knowledgeGraphRepo
+            .searchAndReturnClosestMatchingNamedLocation(query);
+        toolResult =
+            "Found a location matching '$query':\n${closestMatch.toString()}";
+      } else {
+        toolResult = "Found no locations matching the user's request";
+      }
+    } else if (call.name == UIConstants.kFindNearbyLocationsFunctionTool) {
+      final radiusInKm = (args['radius'] as num? ?? 5.0).toDouble();
+
+      final userPoint = await Geolocator.getCurrentPosition();
+      final foundElements = await _locationSearchRepo.findNearby(
+          Point(userPoint.latitude, userPoint.longitude), radiusInKm);
+
+      if (foundElements.isEmpty) {
+        toolResult = "No locations were found within a ${radiusInKm}km radius.";
+      } else {
+        toolResult =
+            "Found ${foundElements.length} nearby locations:\n${foundElements.map((element) {
+          return "- Name: ${element.name}, Type: ${element.type}, Purpose: ${element.details.purpose}";
+        }).join("\n")}";
+      }
+    } else {
+      toolResult = "Invalid arguments provided for search. ";
+    }
+
+    // --- Feed the result back to Gemma ---
+    await _chat!.addQueryChunk(Message(
+      text: toolResult,
+      isUser: true,
+    ));
+    final finalResponseStream = _chat!.generateChatResponseAsync();
+    yield* finalResponseStream
+        .where((response) => response is TextResponse)
+        .map((response) => (response as TextResponse).token);
   }
 }
