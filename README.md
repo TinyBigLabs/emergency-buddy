@@ -52,12 +52,14 @@ Or when you are in a remote area with no internet access, or when you are in a f
 - Hospital locations and contact details are not readily available offline.
 - Privacy concerns prevent sharing sensitive information with third-party apps, like uploading personal data or images
 - Language barriers can hinder effective communication during emergencies.
+- In case of getting stung or eating berries that may be poisonous there is no
 
 ## 💡 Solution
 Explain your approach:
-- How does your solution address the problem?
-- What makes your approach unique or innovative?
-- What is the core value proposition?
+- Create an single-page app that works fully offline and is easy to navigate
+- Using Gemma as a conversation partner to answer questions and analyse images
+- Nearest safe places offer some direction even when offline.
+- Utilising Gemma's knowledge of first aid, environmental disasters, plants analysis, animal knowledge to provide flexible, situation relevant information
 
 ## ✨ Features
 The main Gemma features used in this app:
@@ -176,15 +178,15 @@ Discuss the main challenges you faced:
 ## 🎉 Accomplishments
 Highlight what you're proud of:
 - Successfully implemented [specific feature] in [time constraint]
-- Achieved [specific metric or goal]
-- Learned and integrated [new technology]
+- Achieved [achievements]
+- Learned and integrated [achievements]
 - Created a user-friendly interface despite time constraints
 
 ## 📚 What We Learned
 Share key learnings from the hackathon:
-- Technical skills acquired
-- Tools or frameworks you tried for the first time
-- Project management insights
+- Technical skills acquired: Gemma, LLM fine tuning, Knowledge Graph, Quadtree, MediaPipe, Unsloth, Codelab,
+- Tools or frameworks you tried for the first time: Gemma with Media Pipe and Tools/KnowlegeGraph, Lora-weights, Unsloth, Codelab, 
+- Project management insights: Too many ideas coming in and there are lots of Opportunities with Gemma, only just scratched the surface what can be done with it. It still takes a quite long time to download Gemma, this needs to be communicated to teh app user in a new way.
 - Teamwork lessons
 
 ## 🚀 Future Enhancements
