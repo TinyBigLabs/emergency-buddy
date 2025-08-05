@@ -49,10 +49,13 @@ In situations where you need immediate access to emergency information, such as 
 Or when you are in a remote area with no internet access, or when you are in a foreign country where language barriers make it difficult to communicate effectively.
 ### Key Issues
 - First aid information is often inaccessible without an internet connection.
+- Under stress you can't read long pdfs or spend ages searching for the right info source -> single page app with quick link information.
 - Hospital locations and contact details are not readily available offline.
 - Privacy concerns prevent sharing sensitive information with third-party apps, like uploading personal data or images
 - Language barriers can hinder effective communication during emergencies.
-- In case of getting stung or eating berries that may be poisonous there is no
+- Emergencies can have a wide range of root causes, not covered by static pdf's and articles - e.g. identify poisounous plants, specific natural disaster situations
+- Low end mobile devices don't have the capacities to handle Gemma 3n model, default back to small model
+
 
 ## 💡 Solution
 Explain your approach:
@@ -67,6 +70,8 @@ The main Gemma features used in this app:
 - 🚀 **Core Feature 2:** First aid - image analysis, real chat.
 - 📊 **Core Feature 3:** Country specific emergency numbers and contacts
 - 📊 **Core Feature 4:** Translation capabilities for emergency phrases
+- 📊 **Core Feature 5:** Gemma's broad knowledge of natural disaster, plants and emergency situations can all be utilised
+- 📊 **Core Feature 5:** App detects low ram devices and web and then defaults to 1B model, make the app usable across a very wide range of devices.
 - 🎨 **Additional Feature:** First Aid leaflets and general information on what to do in case of an emergency
 
 ## 🛠 Tech Stack
