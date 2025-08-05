@@ -33,14 +33,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     try {
       emit(const ChatModelLoading('Preparing model...'));
 
-      if(!kIsWeb){
+      //if(!kIsWeb){
       final modelPath = await _setupModelUseCase(
         onProgress: (message, progress) {
           emit(ChatModelLoading(message, progress));
         },
       );
       _chatRepository.setModelPath(modelPath);
-      }
+      //}
 
       emit(const ChatModelLoading('Initializing Gemma engine...'));
       await _initializeModelUseCase();

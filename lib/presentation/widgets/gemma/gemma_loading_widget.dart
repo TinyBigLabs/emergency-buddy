@@ -30,6 +30,7 @@ class _GemmaLoadingWidgetState extends State<GemmaLoadingWidget> {
       });
       return true;
     }
+
     if (_isLowRamDevice) {
       _downloaderDataSource = GemmaDownloaderDataSource(
         model: DownloadModel(
