@@ -29,6 +29,14 @@ Emergencies don’t only occur when you’re online or surrounded by people who 
 *Caption describing the screenshot*
 
 ## 🚀 Future Enhancements
+- Gemma works differently depending on which device it is running.
+- It depends on Media Pipe which makes it volatile.
+- Relatively stable on higher end mobile devices, lower RAM devices are not being served very well.
+- Very long download times for the models, retraining of users needed to see the value of waiting for very long.
+- Image and language support only really working on > 8RAM devices.
+- 
+
+## 🚀 Future Enhancements
 Outline your roadmap for future development:
 - **Short-term (1-2 weeks):**
     - [ ] Feature enhancement 1
