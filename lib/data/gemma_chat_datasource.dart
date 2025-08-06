@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
@@ -18,8 +19,14 @@ abstract class GemmaChatDataSource {
 class GemmaChatDataSourceImpl implements GemmaChatDataSource {
   InferenceChat? _chat;
 
-  final KnowledgeGraphRepo _knowledgeGraphRepo = KnowledgeGraphRepo();
-  final LocationSearchRepo _locationSearchRepo = LocationSearchRepoImpl();
+  final KnowledgeGraphRepo _knowledgeGraphRepo;
+  final LocationSearchRepo _locationSearchRepo;
+
+  GemmaChatDataSourceImpl(
+      {required KnowledgeGraphRepo knowledgeGraphRepo,
+      required LocationSearchRepo locationSearchRepo})
+      : _knowledgeGraphRepo = knowledgeGraphRepo,
+        _locationSearchRepo = locationSearchRepo;
 
   @override
   Future<void> initialize(String? modelPath) async {
@@ -38,7 +45,6 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
     // await gemma.modelManager.installModelFromAsset(
     //     "assets/gemma/Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task");
     await gemma.modelManager.setModelPath(modelPath!);
-    debugPrint(modelPath);
 
     final inferenceModel = await gemma.createModel(
       modelType: ModelType.gemmaIt,
@@ -87,6 +93,9 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
         ),
       ],
     );
+    if (!_locationSearchRepo.isInitialised()) {
+      await _locationSearchRepo.buildLocationTree();
+    }
   }
 
   @override
@@ -117,6 +126,7 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
             );
 
       await _chat!.addQueryChunk(userMessage);
+      // This flag tracks if a function call is being handled.
       bool isHandlingFunctionCall = false;
 
       _chat!.generateChatResponseAsync().listen(
@@ -127,23 +137,28 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
           } else if (response is FunctionCallResponse) {
             isHandlingFunctionCall = true;
             // Delegate to the function handler, which will now also use the controller.
+            debugPrint("handling function call");
             await _handleFunctionCall(response, controller);
           }
         },
         onError: (error) {
           // Pass any errors to the stream.
+          debugPrint("stream error $error");
           controller.addError(error);
         },
         onDone: () {
           // If the stream finishes and we DID NOT start a function call,
           // it means the conversation is over. We can close the controller.
           if (!isHandlingFunctionCall) {
+            debugPrint("closing stream cause no function call");
             controller.close();
           }
         },
       );
     } catch (e) {
+      debugPrint(e.toString());
       controller.addError(e);
+      debugPrint("closing stream cause error");
       controller.close();
     }
   }
@@ -173,7 +188,7 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
 
         final userPoint = await Geolocator.getCurrentPosition();
         final foundElements = await _locationSearchRepo.findNearby(
-            Point(userPoint.latitude, userPoint.longitude), radiusInKm);
+            Point(userPoint.longitude, userPoint.latitude), radiusInKm);
 
         if (foundElements.isEmpty) {
           toolResult =
@@ -189,11 +204,15 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
       }
 
       // --- Feed the result back to Gemma ---
-      await _chat!.addQueryChunk(Message.toolResponse(
-        toolName: call.name,
-        response: {'status': 'success', 'message': toolResult},
-      ));
-       await for (final finalResponse in _chat!.generateChatResponseAsync()) {
+      debugPrint("Waiting for tool call");
+      await Future.delayed(Duration(milliseconds: 1500), () {
+        debugPrint("executing tool call");
+        _chat!.addQueryChunk(Message.toolResponse(
+          toolName: call.name,
+          response: {'status': 'success', 'message': toolResult},
+        ));
+      });
+      await for (final finalResponse in _chat!.generateChatResponseAsync()) {
         if (finalResponse is TextResponse) {
           // Add the final response tokens to the same stream.
           controller.add(finalResponse.token);

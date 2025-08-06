@@ -11,10 +11,16 @@ import '../entities/knowledge_base_model.dart';
 abstract class LocationSearchRepo {
   Future<void> buildLocationTree();
   Future<List<KnowledgeBaseElement>> findNearby(Point userLocation, double radiusKm);
+  bool isInitialised();
 }
 
 class LocationSearchRepoImpl implements LocationSearchRepo {
-  QuadTreeNode? _quadtree;
+  static QuadTreeNode? _quadtree;
+
+  @override
+  bool isInitialised() {
+    return _quadtree != null;
+  }
 
   @override
   Future<void> buildLocationTree() async {

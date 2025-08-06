@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:emergency_buddy/core/di/injection_container.config.dart';
 import 'package:emergency_buddy/core/network/network_info.dart';
 import 'package:emergency_buddy/domain/repositories/first_aid_repository.dart';
+import 'package:emergency_buddy/domain/repositories/knowledge_graph_repo.dart';
 import 'package:emergency_buddy/domain/usecases/get_first_aid_home_screen_listing_usecase.dart';
 import 'package:emergency_buddy/presentation/widgets/chat/bloc/chat_bloc.dart';
 import 'package:emergency_buddy/presentation/widgets/first_aid/blocs/first_aid_cubit.dart';
@@ -62,8 +63,11 @@ Future<void> init() async {
   sl.registerSingleton<LocationSearchRepo>(
       LocationSearchRepoImpl()..buildLocationTree());
 
+    sl.registerSingleton<KnowledgeGraphRepo>(
+      KnowledgeGraphRepo());
+
   // A new instance will be created each time it's requested.
-  sl.registerFactory<GemmaChatDataSource>(() => GemmaChatDataSourceImpl());
+  sl.registerFactory<GemmaChatDataSource>(() => GemmaChatDataSourceImpl(knowledgeGraphRepo: sl<KnowledgeGraphRepo>(), locationSearchRepo: sl<LocationSearchRepo>()));
 
   // --- Repositories ---
   sl.registerLazySingleton<ModelSetupRepository>(
