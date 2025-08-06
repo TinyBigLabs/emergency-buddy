@@ -35,7 +35,7 @@ We adopted a **Clean Architecture** approach, separating our code into three d
 - **Language Barriers**: Language barriers can hinder effective communication during emergencies.
 
 ## 🎥 Demo
-- **Live Demo:** [https://your-demo-url.com](https://your-demo-url.com)
+- **Live Demo:** [Web App Demo](https://emergencybuddy-46275.web.app/)
 - **Video Demo:** [Demo Video](https://drive.google.com/file/d/1eBZMQ88EbV7quVKMGXmQxfw9QzYmwKnM/view)
 
 
