@@ -46,45 +46,45 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
     );
 
     _chat = await inferenceModel.createChat(
-      supportsFunctionCalls: true,
+      // supportsFunctionCalls: true,
       supportImage: !kIsWeb,
-      tools: [
-        // Add your Tool definitions here if you use function calling
-        const Tool(
-          name: UIConstants.kSearchDatabaseFunctionTool,
-          description:
-              'Searches the local knowledge graph for a specific place, like a hospital or food bank. Use this to find details like an address or phone number. It can handle partial names and minor typos.',
-          parameters: {
-            'type': 'object',
-            'properties': {
-              'query': {
-                'type': 'string',
-                'description':
-                    "The name of the place you are looking for, for example 'Russells Hall Hospital' or 'Dudley food bank'.",
-              },
-            },
-            'required': ['query'],
-          },
-        ),
-        const Tool(
-          name: UIConstants.kFindNearbyLocationsFunctionTool,
-          description:
-              'Finds nearby points of interest like emergency shelters, hospitals, or radio stations based on the user\'s current latitude and longitude. Use this when the user asks "what is near me?" or asks for the closest location for help.',
-          parameters: {
-            'type': 'object',
-            'properties': {
-              'radius': {
-                'type': 'number',
-                'description':
-                    'Optional. The search radius in kilometers. Defaults to 5 if not provided.',
-              },
-            },
-            'required': [
-              'radius',
-            ],
-          },
-        ),
-      ],
+      // tools: [
+      //   // Add your Tool definitions here if you use function calling
+      //   const Tool(
+      //     name: UIConstants.kSearchDatabaseFunctionTool,
+      //     description:
+      //         'Searches the local knowledge graph for a specific place, like a hospital or food bank. Use this to find details like an address or phone number. It can handle partial names and minor typos.',
+      //     parameters: {
+      //       'type': 'object',
+      //       'properties': {
+      //         'query': {
+      //           'type': 'string',
+      //           'description':
+      //               "The name of the place you are looking for, for example 'Russells Hall Hospital' or 'Dudley food bank'.",
+      //         },
+      //       },
+      //       'required': ['query'],
+      //     },
+      //   ),
+      //   const Tool(
+      //     name: UIConstants.kFindNearbyLocationsFunctionTool,
+      //     description:
+      //         'Finds nearby points of interest like emergency shelters, hospitals, or radio stations based on the user\'s current latitude and longitude. Use this when the user asks "what is near me?" or asks for the closest location for help.',
+      //     parameters: {
+      //       'type': 'object',
+      //       'properties': {
+      //         'radius': {
+      //           'type': 'number',
+      //           'description':
+      //               'Optional. The search radius in kilometers. Defaults to 5 if not provided.',
+      //         },
+      //       },
+      //       'required': [
+      //         'radius',
+      //       ],
+      //     },
+      //   ),
+      // ],
     );
   }
 
@@ -129,57 +129,58 @@ Adhere to the following directives at all times:
     await for (final modelResponse in responseStream) {
       if (modelResponse is TextResponse) {
         yield modelResponse.token;
-      } else if (modelResponse is FunctionCallResponse) {
-        yield*  _handleFunctionCall(modelResponse);
-      }
+      } 
+      // else if (modelResponse is FunctionCallResponse) {
+      //   yield*  _handleFunctionCall(modelResponse);
+      // }
     }
   }
 
-  // This private method is the core of handling the function call.
-  /// It acts as a router to the correct repository.
- Stream<String> _handleFunctionCall(FunctionCallResponse call) async* {
-    final args = call.args;
-    String toolResult;
-    if (call.name == UIConstants.kSearchDatabaseFunctionTool) {
-      if (args.containsKey('query') &&
-          args['query'] != null &&
-          (args['query'] as String).isNotEmpty) {
-        // --- 1. Name-based Search (Fuzzy Text) ---
-        final query = args['query'] as String;
-        final closestMatch = await _knowledgeGraphRepo
-            .searchAndReturnClosestMatchingNamedLocation(query);
-        toolResult =
-            "Found a location matching '$query':\n${closestMatch.toString()}";
-      } else {
-        toolResult = "Found no locations matching the user's request";
-      }
-    } else if (call.name == UIConstants.kFindNearbyLocationsFunctionTool) {
-      final radiusInKm = (args['radius'] as num? ?? 5.0).toDouble();
+//   // This private method is the core of handling the function call.
+//   /// It acts as a router to the correct repository.
+//  Stream<String> _handleFunctionCall(FunctionCallResponse call) async* {
+//     final args = call.args;
+//     String toolResult;
+//     if (call.name == UIConstants.kSearchDatabaseFunctionTool) {
+//       if (args.containsKey('query') &&
+//           args['query'] != null &&
+//           (args['query'] as String).isNotEmpty) {
+//         // --- 1. Name-based Search (Fuzzy Text) ---
+//         final query = args['query'] as String;
+//         final closestMatch = await _knowledgeGraphRepo
+//             .searchAndReturnClosestMatchingNamedLocation(query);
+//         toolResult =
+//             "Found a location matching '$query':\n${closestMatch.toString()}";
+//       } else {
+//         toolResult = "Found no locations matching the user's request";
+//       }
+//     } else if (call.name == UIConstants.kFindNearbyLocationsFunctionTool) {
+//       final radiusInKm = (args['radius'] as num? ?? 5.0).toDouble();
 
-      final userPoint = await Geolocator.getCurrentPosition();
-      final foundElements = await _locationSearchRepo.findNearby(
-          Point(userPoint.latitude, userPoint.longitude), radiusInKm);
+//       final userPoint = await Geolocator.getCurrentPosition();
+//       final foundElements = await _locationSearchRepo.findNearby(
+//           Point(userPoint.latitude, userPoint.longitude), radiusInKm);
 
-      if (foundElements.isEmpty) {
-        toolResult = "No locations were found within a ${radiusInKm}km radius.";
-      } else {
-        toolResult =
-            "Found ${foundElements.length} nearby locations:\n${foundElements.map((element) {
-          return "- Name: ${element.name}, Type: ${element.type}, Purpose: ${element.details.purpose}";
-        }).join("\n")}";
-      }
-    } else {
-      toolResult = "Invalid arguments provided for search. ";
-    }
+//       if (foundElements.isEmpty) {
+//         toolResult = "No locations were found within a ${radiusInKm}km radius.";
+//       } else {
+//         toolResult =
+//             "Found ${foundElements.length} nearby locations:\n${foundElements.map((element) {
+//           return "- Name: ${element.name}, Type: ${element.type}, Purpose: ${element.details.purpose}";
+//         }).join("\n")}";
+//       }
+//     } else {
+//       toolResult = "Invalid arguments provided for search. ";
+//     }
 
-    // --- Feed the result back to Gemma ---
-    await _chat!.addQueryChunk(Message(
-      text: toolResult,
-      isUser: true,
-    ));
-    final finalResponseStream = _chat!.generateChatResponseAsync();
-    yield* finalResponseStream
-        .where((response) => response is TextResponse)
-        .map((response) => (response as TextResponse).token);
-  }
+//     // --- Feed the result back to Gemma ---
+//     await _chat!.addQueryChunk(Message(
+//       text: toolResult,
+//       isUser: true,
+//     ));
+//     final finalResponseStream = _chat!.generateChatResponseAsync();
+//     yield* finalResponseStream
+//         .where((response) => response is TextResponse)
+//         .map((response) => (response as TextResponse).token);
+//   }
 }
