@@ -36,7 +36,7 @@ We adopted a **Clean Architecture** approach, separating our code into three d
 
 ## 🎥 Demo
 - **Live Demo:** [Web App Demo](https://emergencybuddy-46275.web.app/)
-- **Video Demo:** [Demo Video](https://drive.google.com/file/d/1eBZMQ88EbV7quVKMGXmQxfw9QzYmwKnM/view)
+- **Video Demo:** [Demo Video](https://www.youtube.com/watch?v=i2Zwoo4WGGc)
 
 
 ## 🚀 Future Enhancements
