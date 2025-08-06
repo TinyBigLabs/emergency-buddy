@@ -18,7 +18,7 @@ class ModelSetupRepositoryImpl implements ModelSetupRepository {
   Future<String> setupModel({
     required Function(String, double?) onProgress,
   }) async {
-    bool isLowRamDevice = false;
+    bool isLowRamDevice = true;
 
     if (!kIsWeb) {
       if (Platform.isIOS) {

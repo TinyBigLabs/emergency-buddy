@@ -17,12 +17,24 @@ class GemmaDownloaderDataSource {
   String get _preferenceKey => 'model_downloaded_${model.modelFilename}';
 
   Future<String> getFilePath() async {
+    if(kIsWeb){
+      if(kDebugMode){
+        // In debug mode, we assume the model is bundled with the web app.
+        return "/assets/gemma/${model.modelFilename}";
+      }
+
+      return "/assets/assets/gemma/${model.modelFilename}";
+    }
     final directory = await getApplicationDocumentsDirectory();
     return '${directory.path}/${model.modelFilename}';
   }
 
   Future<bool> checkModelExistence() async {
     final prefs = await SharedPreferences.getInstance();
+    if(kIsWeb){
+      await prefs.setBool(_preferenceKey, true);
+      return true;
+    }
     if (prefs.getBool(_preferenceKey) ?? false) {
       final filePath = await getFilePath();
       final file = File(filePath);
@@ -61,6 +73,7 @@ class GemmaDownloaderDataSource {
     await prefs.setBool(_preferenceKey, false);
     return false;
   }
+
 
   /// Downloads the model file and tracks progress.
   Future<void> downloadModel({

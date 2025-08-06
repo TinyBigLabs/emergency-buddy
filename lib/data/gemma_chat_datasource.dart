@@ -25,11 +25,19 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
   Future<void> initialize(String? modelPath) async {
     final gemma = FlutterGemmaPlugin.instance;
     if (kIsWeb) {
-      await gemma.modelManager.installModelFromAsset(
-          "assets/gemma/Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task");
-    } else {
-      await gemma.modelManager.setModelPath(modelPath!);
+      if (kDebugMode) {
+        // In debug mode, we assume the model is bundled with the web app.
+        modelPath =
+          "assets/gemma/Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task";
+      } else {
+        // In release mode, we can still use the asset path.
+        modelPath =
+          "assets/assets/gemma/Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task";
+      }
     }
+      // await gemma.modelManager.installModelFromAsset(
+      //     "assets/gemma/Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task");
+    await gemma.modelManager.setModelPath(modelPath!);
 
     final inferenceModel = await gemma.createModel(
       modelType: ModelType.gemmaIt,
