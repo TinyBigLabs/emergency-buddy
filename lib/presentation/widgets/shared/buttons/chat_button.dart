@@ -1,6 +1,10 @@
+import 'package:emergency_buddy/presentation/widgets/chat/bloc/chat_bloc.dart';
+import 'package:emergency_buddy/presentation/widgets/chat/bloc/chat_state.dart';
+import 'package:emergency_buddy/presentation/widgets/chat/ui/first_aid_chat_screen.dart';
 import 'package:emergency_buddy/presentation/widgets/shared/buttons/action_button_template.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gemma/core/message.dart';
 
 import '../../../../domain/entities/emergency_message_model.dart';
@@ -18,24 +22,8 @@ class ChatButton extends StatelessWidget {
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).colorScheme.onSurface,
       onTap: () {
-        // Handle camera action
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('Chat'),
-              content: Text('Opening chat...'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> EmergencyBuddyChatScreen(
-                    supplementaryMessage: message == null ? null : Message(text: message!.toString(), isUser: false) ,
-                  ))),
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
+        Navigator.push(context, MaterialPageRoute(builder: (context)=> FirstAidChatScreen() ,
+        ));
       },
     );
   }

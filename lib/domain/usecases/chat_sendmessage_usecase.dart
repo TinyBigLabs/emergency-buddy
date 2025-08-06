@@ -9,7 +9,7 @@ class SendMessageUseCase {
 
   SendMessageUseCase(this.repository);
 
-  Stream<String> call(Message message) {
-    return repository.sendMessage(message);
+  Stream<String> call(Message message, bool isFirstAid) {
+    return repository.sendMessage(message, isFirstAid);
   }
 }

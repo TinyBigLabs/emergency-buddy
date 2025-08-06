@@ -28,7 +28,7 @@ class App extends StatelessWidget {
             create: (context) => di.sl<FirstAidCubit>(),
           ),
           BlocProvider(
-            create: (context) => di.sl<ChatBloc>()..add(InitializeModelEvent()),
+            create: (context) => di.sl<ChatBloc>()..add(InitializeModelEvent(isFirstAid: false)),
           ),
         ],
         child: MaterialApp(

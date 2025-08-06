@@ -2,7 +2,6 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_gemma/core/message.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../bloc/chat_bloc.dart';
@@ -10,19 +9,17 @@ import '../bloc/chat_event.dart';
 import '../bloc/chat_state.dart';
 import 'widgets/chat_widget.dart';
 
-class EmergencyBuddyChatScreen extends StatefulWidget {
-  final Message? supplementaryMessage;
-  const EmergencyBuddyChatScreen({super.key,  this.supplementaryMessage});
+class FirstAidChatScreen extends StatefulWidget {
+  const FirstAidChatScreen({super.key});
 
   @override
-  State<EmergencyBuddyChatScreen> createState() =>
-      _EmergencyBuddyChatScreenState();
+  State<FirstAidChatScreen> createState() =>
+      _FirstAidChatScreenChatScreenState();
 }
 
-class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
+class _FirstAidChatScreenChatScreenState extends State<FirstAidChatScreen> {
   final ImagePicker _imagePicker = ImagePicker();
   Uint8List? _selectedImage;
-  bool _hasAlreadySentSupplementaryMessage = false;
   final _textController = TextEditingController();
 
   void _sendMessage(bool isResponding) {
@@ -32,7 +29,7 @@ class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
 
     context
         .read<ChatBloc>()
-        .add(SendMessageEvent(text: text, image: _selectedImage, isFirstAid: false));
+        .add(SendMessageEvent(text: text, image: _selectedImage, isFirstAid: true));
 
     _textController.clear();
     setState(() {
@@ -44,7 +41,7 @@ class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
   Future<void> _pickImage() async {
     try {
       final pickedFile =
-          await _imagePicker.pickImage(source: ImageSource.gallery);
+      await _imagePicker.pickImage(source: ImageSource.gallery);
       if (pickedFile != null) {
         final bytes = await pickedFile.readAsBytes();
         setState(() {
@@ -114,20 +111,13 @@ class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
           }
 
           if (state is ChatReady) {
-            if (widget.supplementaryMessage != null && !_hasAlreadySentSupplementaryMessage){
-            context.read<ChatBloc>().add(SendMessageEvent(
-                text: widget.supplementaryMessage!.text,
-                image: widget.supplementaryMessage!.imageBytes, isFirstAid: false));
-                _hasAlreadySentSupplementaryMessage = true;
-            }
-            
             return Column(
               children: [
                 Expanded(
                   child: ListView.builder(
                     reverse: true,
                     padding:
-                        const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
                     itemCount: state.messages.length,
                     itemBuilder: (context, index) {
                       final message = state.messages.reversed.toList()[index];
@@ -137,18 +127,18 @@ class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
                 ),
                 state.isResponding
                     ? const Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 8.0),
-                        child: Row(
-                          children: [
-                            SizedBox.square(
-                                dimension: 20,
-                                child: CircularProgressIndicator(
-                                    strokeWidth: 2.5)),
-                            SizedBox(width: 12),
-                            Text('Emergency Buddy is thinking...'),
-                          ],
-                        ))
+                    padding: EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 8.0),
+                    child: Row(
+                      children: [
+                        SizedBox.square(
+                            dimension: 20,
+                            child: CircularProgressIndicator(
+                                strokeWidth: 2.5)),
+                        SizedBox(width: 12),
+                        Text('Emergency Buddy is thinking...'),
+                      ],
+                    ))
                     : SizedBox.shrink(),
                 _buildChatInputArea(state.isResponding),
               ],
@@ -182,15 +172,15 @@ class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
             children: [
               if (_selectedImage != null)
                 Align(
-                  alignment: Alignment.centerLeft,
-                child:
-                Padding(
-                  padding: EdgeInsetsGeometry.all(10),
-                  child: 
-                 Image.memory(
-                  _selectedImage!,
-                  height: 100,
-                ))),
+                    alignment: Alignment.centerLeft,
+                    child:
+                    Padding(
+                        padding: EdgeInsetsGeometry.all(10),
+                        child:
+                        Image.memory(
+                          _selectedImage!,
+                          height: 100,
+                        ))),
               Row(
                 children: [
                   Expanded(
@@ -213,7 +203,7 @@ class _EmergencyBuddyChatScreenState extends State<EmergencyBuddyChatScreen> {
                   IconButton(
                     icon: const Icon(Icons.send),
                     onPressed:
-                        isResponding ? null : () => _sendMessage(isResponding),
+                    isResponding ? null : () => _sendMessage(isResponding),
                   ),
                 ],
               ),

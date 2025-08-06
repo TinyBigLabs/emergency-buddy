@@ -19,7 +19,15 @@ class ModelSetupRepositoryImpl implements ModelSetupRepository {
     required Function(String, double?) onProgress,
   }) async {
     bool isLowRamDevice = true;
-
+    if(kIsWeb){
+      if (kDebugMode) {
+        // In debug mode, we assume the model is bundled with the web app.
+        onProgress('Using bundled model for web.', null);
+        return 'assets/gemma/Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task';
+      }
+      onProgress('Using bundled model for release web.', null);
+      return 'assets/assets/gemma/Gemma3-1B-IT_multi-prefill-seq_q4_ekv2048.task';
+    }
     if (!kIsWeb) {
       if (Platform.isIOS) {
         final iosInfo = await DeviceInfoPlugin().iosInfo;

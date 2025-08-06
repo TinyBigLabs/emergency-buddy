@@ -9,10 +9,10 @@ abstract class ChatRepository {
   void setModelPath(String? path);
 
   /// Initializes the chat service with the previously set model path.
-  Future<void> initializeModel();
+  Future<void> initializeModel(bool isFirstAid);
 
   /// Sends a message to the chat service and returns a stream of response tokens.
-  Stream<String> sendMessage(Message message);
+  Stream<String> sendMessage(Message message, bool isFirstAid);
 }
 
 
@@ -29,15 +29,15 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<void> initializeModel() {
+  Future<void> initializeModel(bool isFirstAid) {
     if (_modelPath == null && !kIsWeb) {
       throw Exception("Model path not set. Call ChatRepository.setModelPath() first.");
     }
-    return gemmaDataSource.initialize(_modelPath);
+    return gemmaDataSource.initialize(_modelPath, isFirstAid);
   }
 
   @override
-  Stream<String> sendMessage(Message message) {
-    return gemmaDataSource.sendMessage(message.text, message.imageBytes);
+  Stream<String> sendMessage(Message message, bool isFirstAid) {
+    return gemmaDataSource.sendMessage(message.text, message.imageBytes, isFirstAid);
   }
 }

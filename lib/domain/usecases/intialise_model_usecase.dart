@@ -5,7 +5,7 @@ class InitializeModelUseCase {
 
   InitializeModelUseCase(this.repository);
 
-  Future<void> call() {
-    return repository.initializeModel();
+  Future<void> call(bool isFirstAid) {
+    return repository.initializeModel(isFirstAid);
   }
 }

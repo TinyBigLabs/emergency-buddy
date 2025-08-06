@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_gemma/core/message.dart';
@@ -9,6 +8,7 @@ import '../../../../domain/usecases/intialise_model_usecase.dart';
 import '../../../../domain/usecases/setup_model_usecase.dart';
 import 'chat_event.dart';
 import 'chat_state.dart';
+
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final SetupModelUseCase _setupModelUseCase;
@@ -43,7 +43,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       //}
 
       emit(const ChatModelLoading('Initializing Gemma engine...'));
-      await _initializeModelUseCase();
+      await _initializeModelUseCase(event.isFirstAid);
 
       emit(ChatReady(messages: _messages));
     } catch (e) {
@@ -68,7 +68,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     // StreamSubscription<String>? subscription;
 
     try {
-      final responseStream = _sendMessageUseCase(userMessage);
+      final responseStream = _sendMessageUseCase(userMessage, event.isFirstAid);
 
       await for (final token in responseStream) {
         // This check is a safeguard. If another event comes in while this one

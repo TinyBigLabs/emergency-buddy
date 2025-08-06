@@ -128,7 +128,8 @@ class _GemmaLoadingWidgetState extends State<GemmaLoadingWidget> {
                 ],
               ),
             )
-          : SizedBox.shrink(),
+          : Text("Loaded Gemma model successfully!",
+              style: Theme.of(context).textTheme.bodyMedium)
     );
   }
 }

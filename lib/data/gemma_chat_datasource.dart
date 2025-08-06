@@ -11,8 +11,8 @@ import '../domain/repositories/knowledge_graph_repo.dart';
 import '../domain/repositories/location_search_repo.dart';
 
 abstract class GemmaChatDataSource {
-  Future<void> initialize(String? modelPath);
-  Stream<String> sendMessage(String text, Uint8List? image);
+  Future<void> initialize(String? modelPath, bool isFirstAid);
+  Stream<String> sendMessage(String text, Uint8List? image, bool isFirstAid);
 }
 
 class GemmaChatDataSourceImpl implements GemmaChatDataSource {
@@ -22,7 +22,7 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
   final LocationSearchRepo _locationSearchRepo = LocationSearchRepoImpl();
 
   @override
-  Future<void> initialize(String? modelPath) async {
+  Future<void> initialize(String? modelPath, bool isFirstAid) async {
     final gemma = FlutterGemmaPlugin.instance;
     if (kIsWeb) {
       if (kDebugMode) {
@@ -48,7 +48,7 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
     _chat = await inferenceModel.createChat(
       supportsFunctionCalls: true,
       supportImage: !kIsWeb,
-      tools: [
+      tools: isFirstAid ? [] : [
         // Add your Tool definitions here if you use function calling
         const Tool(
           name: UIConstants.kSearchDatabaseFunctionTool,
@@ -89,12 +89,12 @@ class GemmaChatDataSourceImpl implements GemmaChatDataSource {
   }
 
   @override
-  Stream<String> sendMessage(String text, Uint8List? image) async* {
+  Stream<String> sendMessage(String text, Uint8List? image, isFirstAid) async* {
     if (_chat == null) {
       throw Exception("Chat not initialized. Call initialize() first.");
     }
 
-    const masterPrompt = """
+    final masterPrompt = isFirstAid ? "" : """
 You are the "Offline Emergency Buddy," an AI assistant designed to operate without an internet connection. Your sole purpose is to provide calm, clear, and actionable advice to help a user stay safe during an emergency.
 
 Adhere to the following directives at all times:
@@ -127,11 +127,11 @@ Adhere to the following directives at all times:
 
     final responseStream = _chat!.generateChatResponseAsync();
     await for (final modelResponse in responseStream) {
-      if (modelResponse is TextResponse) {
-        yield modelResponse.token;
-      } else if (modelResponse is FunctionCallResponse) {
-        yield*  _handleFunctionCall(modelResponse);
-      }
+        if (modelResponse is TextResponse) {
+          yield modelResponse.token;
+        } else if (modelResponse is FunctionCallResponse) {
+          yield* _handleFunctionCall(modelResponse);
+        }
     }
   }
 
