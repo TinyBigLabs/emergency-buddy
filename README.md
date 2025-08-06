@@ -1,4 +1,7 @@
 # Emergency Buddy
+
+<img width="1280" height="640" alt="emergency-buddy-logo" src="https://github.com/user-attachments/assets/01856aa5-eb80-4d0e-8cbb-3f13ae12f79c" />
+
 Emergency Buddy provides offline-first, privacy-focused emergency information. Packaging the Gemma AI model, knowledge graph, and device information for quick access to emergency services, nearby hospitals, and first aid information.
 
 ## Overview
