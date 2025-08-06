@@ -34,14 +34,8 @@ We adopted a **Clean Architecture** approach, separating our code into three d
 
 ## 🎥 Demo
 - **Live Demo:** [https://your-demo-url.com](https://your-demo-url.com)
-- **Video Demo:** [https://youtube.com/watch?v=demo-video](https://youtube.com/watch?v=demo-video)
-- **Screenshots:**
+- **Video Demo:** [Demo Video](https://drive.google.com/file/d/1eBZMQ88EbV7quVKMGXmQxfw9QzYmwKnM/view)
 
-![Screenshot 1](./images/screenshot1.png)
-*Caption describing the screenshot*
-
-![Screenshot 2](./images/screenshot2.png)
-*Caption describing the screenshot*
 
 ## 🚀 Future Enhancements
 While Gemma 3n enables powerful on-device capabilities, there are some important constraints to be aware of:
