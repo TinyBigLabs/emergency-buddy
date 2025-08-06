@@ -61,12 +61,12 @@ class _LandingPageSliverState extends State<LandingPageSliver> {
                         : SliverTopBarMobile(title: widget.title),
                   ),
                 ),
-                // SliverToBoxAdapter(
-                //   child: Padding(
-                //     padding: EdgeInsets.all(UIConstants.mediumSize),
-                //     child: GemmaLoadingWidget(),
-                //   ),
-                // ),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: EdgeInsets.all(UIConstants.mediumSize),
+                    child: GemmaLoadingWidget(),
+                  ),
+                ),
                 SliverToBoxAdapter(
                   child: Padding(
                     padding: EdgeInsets.all(UIConstants.mediumSize),
