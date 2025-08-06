@@ -18,11 +18,15 @@ class CallButton extends StatelessWidget {
           builder: (context) {
             return AlertDialog(
               title: Text('Emergency Call'),
-              content: Text('Calling emergency services...'),
+              content: Text('Calling emergency services on 999...'),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),
-                  child: Text('OK'),
+                  child: Text('CALL'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('CANCEL'),
                 ),
               ],
             );

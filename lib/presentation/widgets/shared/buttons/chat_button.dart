@@ -18,25 +18,14 @@ class ChatButton extends StatelessWidget {
       backgroundColor: Colors.transparent,
       foregroundColor: Theme.of(context).colorScheme.onSurface,
       onTap: () {
-        // Handle camera action
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: Text('Chat'),
-              content: Text('Opening chat...'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> EmergencyBuddyChatScreen(
-                    supplementaryMessage: message == null ? null : Message(text: message!.toString(), isUser: false) ,
-                  ))),
-                  child: Text('OK'),
-                ),
-              ],
-            );
-          },
-        );
-      },
+        // If message is provided, navigate to chat screen with the message
+        Navigator.push(context, MaterialPageRoute(builder: (context) =>
+            EmergencyBuddyChatScreen(
+                supplementaryMessage: message == null ? null : Message(
+                    text: message!.toString(), isUser: false)
+            ),
+        ));
+      }
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:emergency_buddy/core/utils/constants.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -25,10 +26,12 @@ class LanguageSelectionDropdownWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LanguageSelectionDropdownWidgetState createState() => _LanguageSelectionDropdownWidgetState();
+  _LanguageSelectionDropdownWidgetState createState() =>
+      _LanguageSelectionDropdownWidgetState();
 }
 
-class _LanguageSelectionDropdownWidgetState extends State<LanguageSelectionDropdownWidget> {
+class _LanguageSelectionDropdownWidgetState
+    extends State<LanguageSelectionDropdownWidget> {
   String? _selectedLocale;
   String? _selectedCountry;
   static const String _prefsKey = 'selected_locale';
@@ -36,11 +39,13 @@ class _LanguageSelectionDropdownWidgetState extends State<LanguageSelectionDropd
 
   // Default locale options - starts with EN and UK as requested
   final List<LocaleOption> _localeOptions = [
-    LocaleOption(code: 'en-US',
+    LocaleOption(
+        code: 'en-US',
         language: 'English',
         country: 'United States',
         flag: '🇺🇸'),
-    LocaleOption(code: 'en-GB',
+    LocaleOption(
+        code: 'en-GB',
         language: 'English',
         country: 'United Kingdom',
         flag: '🇬🇧'),
@@ -65,7 +70,10 @@ class _LanguageSelectionDropdownWidgetState extends State<LanguageSelectionDropd
     LocaleOption(
         code: 'pt-BR', language: 'Português', country: 'Brazil', flag: '🇧🇷'),
     LocaleOption(
-        code: 'pt-PT', language: 'Português', country: 'Portugal', flag: '🇵🇹'),
+        code: 'pt-PT',
+        language: 'Português',
+        country: 'Portugal',
+        flag: '🇵🇹'),
     LocaleOption(
         code: 'ru-RU', language: 'Русский', country: 'Russia', flag: '🇷🇺'),
     LocaleOption(
@@ -75,13 +83,15 @@ class _LanguageSelectionDropdownWidgetState extends State<LanguageSelectionDropd
     LocaleOption(code: 'zh-CN', language: '中文', country: 'China', flag: '🇨🇳'),
     LocaleOption(
         code: 'zh-TW', language: '中文', country: 'Taiwan', flag: '🇹🇼'),
-    LocaleOption(code: 'ar-SA',
+    LocaleOption(
+        code: 'ar-SA',
         language: 'العربية',
         country: 'Saudi Arabia',
         flag: '🇸🇦'),
     LocaleOption(
         code: 'hi-IN', language: 'हिन्दी', country: 'India', flag: '🇮🇳'),
-    LocaleOption(code: 'nl-NL',
+    LocaleOption(
+        code: 'nl-NL',
         language: 'Nederlands',
         country: 'Netherlands',
         flag: '🇳🇱'),
@@ -139,7 +149,7 @@ class _LanguageSelectionDropdownWidgetState extends State<LanguageSelectionDropd
   // Get the currently selected locale option
   LocaleOption? get _selectedLocaleOption {
     return _localeOptions.firstWhere(
-          (option) => option.code == _selectedLocale,
+      (option) => option.code == _selectedLocale,
       orElse: () => _localeOptions.first,
     );
   }
@@ -149,71 +159,127 @@ class _LanguageSelectionDropdownWidgetState extends State<LanguageSelectionDropd
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: UIConstants.mediumSize),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "Your Language is set to:",
-            style: Theme.of(context).textTheme.headlineSmall,
-            maxLines: 3,
-            overflow: TextOverflow.visible,
-            softWrap: true,
-          ),
-          Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey[300]!),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                value: _selectedLocale,
-                isExpanded: true,
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 4),
-                icon: const Icon(Icons.keyboard_arrow_down),
-                onChanged: _onLocaleSelected,
-                items: _localeOptions.map<DropdownMenuItem<String>>((
-                    LocaleOption option) {
-                  return DropdownMenuItem<String>(
-                    value: option.code,
-                    child: Row(
-                      children: [
-                        Text(
-                          option.flag,
-                          style: const TextStyle(fontSize: 20),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
+      child: kIsWeb
+          ?Center(
+            child: Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey[300]!),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: DropdownButtonHideUnderline(
+                      child: DropdownButton<String>(
+                        value: _selectedLocale,
+                        isExpanded: true,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 4),
+                        icon: const Icon(Icons.keyboard_arrow_down),
+                        onChanged: _onLocaleSelected,
+                        items: _localeOptions
+                            .map<DropdownMenuItem<String>>((LocaleOption option) {
+                          return DropdownMenuItem<String>(
+                            value: option.code,
+                            child: Row(
+                              children: [
+                                Text(
+                                  option.flag,
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                                const SizedBox(width: 12),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Text(
+                                        option.language,
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Text(
+                                        option.country,
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey[600],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+              ),
+          )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Your Language is set to:",
+                  style: Theme.of(context).textTheme.headlineSmall,
+                  maxLines: 3,
+                  overflow: TextOverflow.visible,
+                  softWrap: true,
+                ),
+                Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey[300]!),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                      value: _selectedLocale,
+                      isExpanded: true,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 4),
+                      icon: const Icon(Icons.keyboard_arrow_down),
+                      onChanged: _onLocaleSelected,
+                      items: _localeOptions
+                          .map<DropdownMenuItem<String>>((LocaleOption option) {
+                        return DropdownMenuItem<String>(
+                          value: option.code,
+                          child: Row(
                             children: [
                               Text(
-                                option.language,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                ),
+                                option.flag,
+                                style: const TextStyle(fontSize: 20),
                               ),
-                              Text(
-                                option.country,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Colors.grey[600],
+                              const SizedBox(width: 12),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      option.language,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                    Text(
+                                      option.country,
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey[600],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                        );
+                      }).toList(),
                     ),
-                  );
-                }).toList(),
-              ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 }
