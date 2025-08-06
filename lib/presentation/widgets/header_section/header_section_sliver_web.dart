@@ -1,4 +1,5 @@
 import 'package:emergency_buddy/core/utils/constants.dart';
+import 'package:emergency_buddy/presentation/widgets/language_selection/language_selection_dropdown.dart';
 import 'package:emergency_buddy/presentation/widgets/shared/buttons/call_button.dart';
 import 'package:emergency_buddy/presentation/widgets/shared/buttons/chat_button.dart';
 import 'package:emergency_buddy/presentation/widgets/shared/language_widget.dart';
@@ -22,7 +23,7 @@ class SliverTopBarWeb extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                LanguageWidget(),
+                LanguageSelectionDropdownWidget(),
                 Text(" - ",
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w500)),

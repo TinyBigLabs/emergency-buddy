@@ -43,6 +43,6 @@ class GPSLocation {
     } catch (e) {
       log(e.toString());
     }
-    return "${placeMarks.first.name}\nLat: ${position.latitude}\nLong: ${position.longitude}";
+    return "${placeMarks.first.locality} - ${position.latitude.toStringAsFixed(4)}/${position.longitude.toStringAsFixed(4)}";
   }
 }

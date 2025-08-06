@@ -31,20 +31,30 @@ class _LocationWidgetState extends State<LocationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        EntryIconWidget(icon: Icons.gps_fixed),
-        SizedBox(width: UIConstants.smallSize),
-        Expanded(
-          child: Text(
-            "Location: $_location",
-            style: Theme.of(context).textTheme.bodyLarge,
-            maxLines: 2,
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: UIConstants.mediumSize),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment:  MainAxisAlignment.start,
+        children: [
+          Text(
+            "Your Location is set to: \n$_location",
+            style: Theme.of(context).textTheme.headlineSmall,
+            maxLines: 1,
             overflow: TextOverflow.visible,
             softWrap: true,
           ),
-        )
-      ],
+          Text(
+            _location,
+            style: Theme.of(context).textTheme.bodyLarge,
+            maxLines: 3,
+            overflow: TextOverflow.visible,
+            softWrap: true,
+          ),
+          SizedBox(height: UIConstants.smallSize),
+        ],
+      ),
     );
   }
 }
