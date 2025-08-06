@@ -1,5 +1,5 @@
 import 'package:emergency_buddy/core/utils/constants.dart';
-import 'package:emergency_buddy/presentation/widgets/shared/language_widget.dart';
+import 'package:emergency_buddy/presentation/widgets/language_selection/language_selection_dropdown.dart';
 import 'package:emergency_buddy/presentation/widgets/shared/location_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +12,9 @@ class SliverTopBarMobile extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(UIConstants.mediumSize),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        mainAxisAlignment: MainAxisAlignment.center,
-        spacing: UIConstants.smallSize,
-        children: [LanguageWidget(), LocationWidget()],
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [LocationWidget(), LanguageSelectionDropdownWidget()],
       ),
     );
   }

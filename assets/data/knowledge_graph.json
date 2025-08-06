@@ -244,6 +244,73 @@
       "location": { "lat": 52.4968, "lon": -1.9578 },
       "details": { "address": "Carters Green, Smethwick B67 7DS", "phone": "999", "notes": "West Midlands Fire Service station covering Smethwick and surrounding areas." },
       "keywords": ["fire station", "emergency", "rescue", "smethwick"]
+    },
+    {
+      "id": "SAFE-BTN-10",
+      "name": "Brighton Station Safe Zone",
+      "type": "Safe Zone",
+      "location": { "lat": 50.8280, "lon": -0.1418 },
+      "details": {
+        "address": "Brighton Station, Queens Rd, Brighton BN1 3XP",
+        "notes": "Busy transport hub with CCTV, lighting, and staff presence. Safe during most hours."
+      },
+      "keywords": ["safe zone", "station", "transport", "brighton", "cctv", "well-lit"]
+    },
+    {
+      "id": "SAFE-BTN-09",
+      "name": "Eastern Road, Brighton, BN2 5BE",
+      "type": "Hospital",
+      "location": { "lat": 50.8182, "lon": -0.1168 },
+      "details": {
+        "address": "Union Rd, Brighton BN2 9SY",
+        "notes": "major NHS facility with comprehensive medical services including emergency care"
+      },
+      "keywords": ["safe zone", "hospital", "public space", "brighton"]
+    },
+    {
+      "id": "SAFE-BTN-08",
+      "name": "Churchill Square Shopping Centre",
+      "type": "Safe Zone",
+      "location": { "lat": 50.8235, "lon": -0.1461 },
+      "details": {
+        "address": "Russell Pl, Brighton BN1 2RG",
+        "notes": "Shopping centre with security presence, indoor lighting, and emergency assistance points."
+      },
+      "keywords": ["safe zone", "shopping", "brighton", "churchill square", "security", "centre"]
+    },
+    {
+      "id": "SAFE-BTN-07",
+      "name": "University of Brighton - Moulsecoomb Campus",
+      "type": "Safe Zone",
+      "location": { "lat": 50.8541, "lon": -0.1254 },
+      "details": {
+        "address": "Watts Building, Lewes Rd, Brighton BN2 4GJ",
+        "notes": "Monitored university campus with lighting, CCTV, and security staff on site."
+      },
+      "keywords": ["safe zone", "university", "brighton", "moulsecoomb", "cctv", "campus"]
+    },
+    {
+      "id": "SAFE-BTN-06",
+      "name": "Preston Circus Fire Station",
+      "type": "Fire Station",
+      "location": { "lat": 50.8300, "lon": -0.1370 },
+      "details": {
+        "address": "London Road, Brighton, East Sussex, BN1 4NZ",
+        "notes": "Brighton is served by a network of fire stations, including the Preston Circus Fire Station, ensuring that safety and emergency response services are promptly available"
+      },
+      "keywords": ["safe zone", "shopping", "brighton", "churchill square", "security", "centre"]
+    },
+    {
+      "id": "SAFE-BTN-05",
+      "name": "Brighton John Street Police Station (Main Station)",
+      "type": "Police Station",
+      "location": { "lat": 50.8230, "lon":  -0.1380},
+      "details": {
+        "address": "Watts Building, Lewes Rd, Brighton BN2 4GJ",
+        "phone": "+44 1273 475432 (non-emergency: 101, emergency: 999)",
+        "notes": "John Street is, without doubt, Sussex Police's flagship station, serving one of the UK's most vibrant city populations."
+      },
+      "keywords": ["police station", "safe zone", "brighton", "john street", "cctv", "security"]
     }
   ]
 }
