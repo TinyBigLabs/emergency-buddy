@@ -16,30 +16,32 @@ class SliverTopBarWeb extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.all(UIConstants.mediumSize),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                LanguageSelectionDropdownWidget(),
-                Text(" - ",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.w500)),
-                LocationWidget()
-              ],
-            ),
-            SizedBox(height: 8.0), // Add some space between rows
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CallButton(),
-                SizedBox(width: 16.0), // Add space between buttons
-                ChatButton(),
-              ],
-            ),
-          ],
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: 8.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LanguageWidget(),
+                  Text(" --- "),
+                  LocationWidget()
+                ],
+              ),
+              SizedBox(height: 8.0), // Add some space between rows
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CallButton(),
+                  SizedBox(width: 16.0), // Add space between buttons
+                  ChatButton(),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
