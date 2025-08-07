@@ -10,7 +10,7 @@ class EmergencyMessageModel {
   @override
   String toString() {
     return !withImage
-        ? "I am having trouble with $emergencyType in $locale, $country. Respond with a simple, clear, and actionable advice in the language for locale $locale and country $country. "
-        : "Analyse the following attached image. The user is having trouble with $emergencyType in $locale, $country. Respond with a simple, clear, and actionable advice in the language for locale $locale and country $country. ";
+        ? "I am having a medical situation with $emergencyType in $locale, $country. Respond with a simple, clear, and actionable advice in the language for locale $locale and country $country. "
+        : "Analyse the following attached image. The user is having a medical situation with $emergencyType in $locale, $country. Respond with a simple, clear, and actionable advice in the language for locale $locale and country $country. ";
   }
 }

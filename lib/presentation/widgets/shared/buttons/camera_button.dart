@@ -18,7 +18,7 @@ class CameraButton extends StatelessWidget {
           builder: (context) {
             return AlertDialog(
               title: Text('Camera'),
-              content: Text('Opening camera...'),
+              content: Text('Opening camera - take a photo to upload to be analysed with this category.'),
               actions: [
                 TextButton(
                   onPressed: () => Navigator.of(context).pop(),

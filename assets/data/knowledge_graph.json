@@ -246,6 +246,29 @@
       "keywords": ["fire station", "emergency", "rescue", "smethwick"]
     },
     {
+      "id": "SAFE-BTN-06",
+      "name": "Preston Circus Fire Station",
+      "type": "Fire Station",
+      "location": { "lat": 50.8300, "lon": -0.1370 },
+      "details": {
+        "address": "London Road, Brighton, East Sussex, BN1 4NZ",
+        "notes": "Brighton is served by a network of fire stations, including the Preston Circus Fire Station, ensuring that safety and emergency response services are promptly available"
+      },
+      "keywords": ["safe zone", "shopping", "brighton", "churchill square", "security", "centre"]
+    },
+    {
+      "id": "SAFE-BTN-05",
+      "name": "Brighton John Street Police Station (Main Station)",
+      "type": "Police Station",
+      "location": { "lat": 50.8230, "lon":  -0.1380},
+      "details": {
+        "address": "Watts Building, Lewes Rd, Brighton BN2 4GJ",
+        "phone": "+44 1273 475432 (non-emergency: 101, emergency: 999)",
+        "notes": "John Street is, without doubt, Sussex Police's flagship station, serving one of the UK's most vibrant city populations."
+      },
+      "keywords": ["police station", "safe zone", "brighton", "john street", "cctv", "security"]
+    },
+    {
       "id": "SAFE-BTN-10",
       "name": "Brighton Station Safe Zone",
       "type": "Safe Zone",
@@ -288,29 +311,6 @@
         "notes": "Monitored university campus with lighting, CCTV, and security staff on site."
       },
       "keywords": ["safe zone", "university", "brighton", "moulsecoomb", "cctv", "campus"]
-    },
-    {
-      "id": "SAFE-BTN-06",
-      "name": "Preston Circus Fire Station",
-      "type": "Fire Station",
-      "location": { "lat": 50.8300, "lon": -0.1370 },
-      "details": {
-        "address": "London Road, Brighton, East Sussex, BN1 4NZ",
-        "notes": "Brighton is served by a network of fire stations, including the Preston Circus Fire Station, ensuring that safety and emergency response services are promptly available"
-      },
-      "keywords": ["safe zone", "shopping", "brighton", "churchill square", "security", "centre"]
-    },
-    {
-      "id": "SAFE-BTN-05",
-      "name": "Brighton John Street Police Station (Main Station)",
-      "type": "Police Station",
-      "location": { "lat": 50.8230, "lon":  -0.1380},
-      "details": {
-        "address": "Watts Building, Lewes Rd, Brighton BN2 4GJ",
-        "phone": "+44 1273 475432 (non-emergency: 101, emergency: 999)",
-        "notes": "John Street is, without doubt, Sussex Police's flagship station, serving one of the UK's most vibrant city populations."
-      },
-      "keywords": ["police station", "safe zone", "brighton", "john street", "cctv", "security"]
     }
   ]
 }
